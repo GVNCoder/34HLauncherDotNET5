@@ -4,17 +4,13 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net5.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
-    <RootNamespace>Launcher</RootNamespace>
-    <AssemblyName>34HLauncher</AssemblyName>
+    <AssemblyName>34HUpdater</AssemblyName>
+    <RootNamespace>Updater</RootNamespace>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DebugType>none</DebugType>
     <DebugSymbols>false</DebugSymbols>
   </PropertyGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Launcher.Resources\Launcher.Resources.csproj" />
-  </ItemGroup>
 
 </Project>
