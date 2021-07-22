@@ -9,7 +9,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Launcher.Resources", "Launc
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Launcher.Core", "Launcher.Core\Launcher.Core.csproj", "{F067ADE8-89FE-4951-B2F6-AADF7FD9D3D4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Updater.App", "Updater.App\Updater.App.csproj", "{E136F9B7-81D1-4DA9-A60B-82CD250A57DF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Updater.App", "Updater.App\Updater.App.csproj", "{E136F9B7-81D1-4DA9-A60B-82CD250A57DF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{BC660732-BA0F-4358-B4AD-5FE18E6DE45C}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
