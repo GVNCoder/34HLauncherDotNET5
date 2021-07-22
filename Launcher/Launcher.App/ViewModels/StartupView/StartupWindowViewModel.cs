@@ -17,7 +17,7 @@ namespace Launcher.App.ViewModels
 
         #region Window settings
 
-        public static string Title { get; } = "";
+        public static string Title { get; } = "34H Launcher";
 
         #endregion
 
