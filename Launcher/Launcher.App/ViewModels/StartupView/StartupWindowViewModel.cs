@@ -1,7 +1,9 @@
 ﻿// ReSharper disable CheckNamespace
 
 using System.Windows;
+using System.Windows.Input;
 
+using Launcher.Commands;
 using Launcher.Core.Services;
 
 namespace Launcher.App.ViewModels
@@ -33,6 +35,20 @@ namespace Launcher.App.ViewModels
             _updateChecker = updateChecker;
             _updateDownloader = updateDownloader;
         }
+
+        #endregion
+
+        #region Commands
+
+        public ICommand ViewLoadedCommand { get; } = new RelayCommand<object>(parameter =>
+        {
+            // TODO: Logic...
+        });
+
+        public ICommand ViewUnloadedCommand { get; } = new RelayCommand<object>(parameter =>
+        {
+            // TODO: Logic...
+        });
 
         #endregion
     }
