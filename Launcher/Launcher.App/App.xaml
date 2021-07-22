@@ -1,8 +1,13 @@
 ﻿<Application
-    x:Class="Launcher.App.App"
+    x:Class="Launcher.LauncherApp"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="clr-namespace:Launcher.App"
-    StartupUri="MainWindow.xaml">
-    <Application.Resources />
+    xmlns:local="clr-namespace:Launcher"
+    xmlns:viewModels="clr-namespace:Launcher.ViewModels"
+    StartupUri="Views\StartupView\StartupWindowView.xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+            <viewModels:ViewModelLocator x:Key="Locator" />
+        </ResourceDictionary>
+    </Application.Resources>
 </Application>

@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace Launcher.App
+namespace Launcher
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
