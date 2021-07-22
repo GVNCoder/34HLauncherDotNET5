@@ -1,10 +1,14 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
+using System.Security;
 
 namespace Launcher.Core.Utilities
 {
     public static class FileSystemUtility
     {
         // https://stackoverflow.com/questions/278439/creating-a-temporary-directory-in-windows
+        /// <exception cref="SecurityException"></exception>
+        /// <exception cref="UnauthorizedAccessException"></exception>
         public static string GetTemporaryDirectory()
         {
             // generate temp directory path
