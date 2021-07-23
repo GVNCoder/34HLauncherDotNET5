@@ -30,7 +30,7 @@ namespace Launcher.Core.Data
             }
             catch (WebException webException)
             {
-                _OnUpdateCheckError();
+                _RaiseOnUpdateCheckError($"{nameof(IsNewVersionAvailableAsync)}", webException);
             }
 
             if (UpdateDescription == null)
@@ -45,8 +45,8 @@ namespace Launcher.Core.Data
 
         #region Private helpers
 
-        private void _OnUpdateCheckError()
-            => OnUpdateCheckError?.Invoke(this, new UpdateCheckErrorEventArgs());
+        private void _RaiseOnUpdateCheckError(string message, Exception exception = null)
+            => OnUpdateCheckError?.Invoke(this, new UpdateCheckErrorEventArgs(message, exception));
 
         #endregion
     }

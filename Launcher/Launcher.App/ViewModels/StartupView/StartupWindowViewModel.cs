@@ -19,7 +19,7 @@ namespace Launcher.App.ViewModels
         #region Constants
 
 #if DEBUG
-        private const string LauncherUpdateDescriptionLink = @"";
+        private const string LauncherUpdateDescriptionLink = @"https://raw.githubusercontent.com/GVNCoder/34HLauncherDotNET5/master/Launcher/UpdateDescription.json";
 #else
         private const string LauncherUpdateDescriptionLink = @"";
 #endif
