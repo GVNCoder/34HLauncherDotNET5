@@ -55,6 +55,18 @@ namespace Launcher.App.ViewModels
 
         #endregion
 
+        #region Dependency properties
+
+        public int UpdateDownloadPercentProgress
+        {
+            get => (int)GetValue(UpdateDownloadPercentProgressProperty);
+            set => SetValue(UpdateDownloadPercentProgressProperty, value);
+        }
+        public static readonly DependencyProperty UpdateDownloadPercentProgressProperty =
+            DependencyProperty.Register("UpdateDownloadPercentProgress", typeof(int), typeof(StartupWindowViewModel), new PropertyMetadata(0));
+
+        #endregion
+
         #region Commands
 
         public ICommand ViewLoadedCommand => new AsyncRelayCommand<object>(async parameter =>
@@ -87,23 +99,19 @@ namespace Launcher.App.ViewModels
         #region Private helpers
 
         private void _OnUpdateCheckError(object sender, UpdateCheckErrorEventArgs e)
-        {
-
-        }
+            => _logger.Warning(e.Exception, e.Message);
 
         private void _OnDownloadError(object sender, UpdateDownloadErrorEventArgs e)
-        {
-
-        }
+            => _logger.Warning(e.Exception, e.Message);
 
         private void _OnDownloadCompleted(object sender, UpdateDownloadCompletedEventArgs e)
         {
-
+            // TODO: Do some stuff with update file here...
         }
 
         private void _OnDownloadProcess(object sender, UpdateDownloadProgressEventArgs e)
         {
-
+            UpdateDownloadPercentProgress = e.PercentProgress;
         }
 
         #endregion
