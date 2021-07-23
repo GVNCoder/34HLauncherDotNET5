@@ -16,7 +16,7 @@ namespace Launcher.Core.Data
         public event EventHandler<UpdateCheckErrorEventArgs> OnUpdateCheckError;
         public UpdateDescription UpdateDescription { get; private set; }
 
-        public async Task<bool> IsNewVersionAvailable(string checkLink, Version currentVersion)
+        public async Task<bool> IsNewVersionAvailableAsync(string checkLink, Version currentVersion)
         {
             try
             {

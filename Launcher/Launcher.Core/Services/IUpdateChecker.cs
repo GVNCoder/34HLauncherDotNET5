@@ -9,7 +9,7 @@ namespace Launcher.Core.Services
     {
         UpdateDescription UpdateDescription { get; }
 
-        Task<bool> IsNewVersionAvailable(string checkLink, Version currentVersion);
+        Task<bool> IsNewVersionAvailableAsync(string checkLink, Version currentVersion);
 
         event EventHandler<UpdateCheckErrorEventArgs> OnUpdateCheckError;
     }

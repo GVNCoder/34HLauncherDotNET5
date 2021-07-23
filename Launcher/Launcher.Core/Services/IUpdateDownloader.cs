@@ -7,8 +7,8 @@ namespace Launcher.Core.Services
     {
         void Download(string downloadLink, string destinationPath);
 
-        event EventHandler<DownloadCompletedEventArgs> OnDownloadCompleted;
-        event EventHandler<DownloadErrorEventArgs> OnDownloadError;
-        event EventHandler<DownloadProgressEventArgs> OnDownloadProgress;
+        event EventHandler<UpdateDownloadCompletedEventArgs> OnDownloadCompleted;
+        event EventHandler<UpdateDownloadErrorEventArgs> OnDownloadError;
+        event EventHandler<UpdateDownloadProgressEventArgs> OnDownloadProgress;
     }
 }
