@@ -15,6 +15,8 @@ using Launcher.Commands;
 using Launcher.Core.Models;
 using Launcher.Core.Services;
 using Launcher.Core.Utilities;
+using Launcher.Views;
+
 using Serilog;
 
 namespace Launcher.App.ViewModels
@@ -28,8 +30,6 @@ namespace Launcher.App.ViewModels
 #else
         private const string LauncherUpdateDescriptionLink = @"";
 #endif
-        private const string UpdaterFileName = "Updater.exe";
-        private const string UpdateFilesDirectoryName = "UpdateFiles";
 
         #endregion
 
@@ -153,9 +153,9 @@ namespace Launcher.App.ViewModels
             ZipFile.ExtractToDirectory(e.DownloadedFilePath, updateDirectory);
 
             // run updater
-            var updaterPath = Path.Combine(updateDirectory, UpdaterFileName);
+            var updaterPath = Path.Combine(updateDirectory, _updateDescription.UpdaterFileName);
             var launcherBackPath = Process.GetCurrentProcess().MainModule?.FileName;
-            var updateFilesPath = Path.Combine(updateDirectory, UpdateFilesDirectoryName);
+            var updateFilesPath = Path.Combine(updateDirectory, _updateDescription.UpdateFilesDirectoryName);
 
             var process = new Process();
             var processRunInfo = new ProcessStartInfo
@@ -198,7 +198,7 @@ namespace Launcher.App.ViewModels
         {
             _currentView.Hide();
 
-            var mainWindow = new MainWindow();
+            var mainWindow = new MainWindowView();
 
             mainWindow.Show();
             mainWindow.ShowActivated = true;

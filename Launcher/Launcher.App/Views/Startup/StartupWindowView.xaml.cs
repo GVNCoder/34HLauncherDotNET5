@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace Launcher.Views.StartupView
+namespace Launcher.Views
 {
     /// <summary>
     /// Interaction logic for StartupWindowView.xaml
