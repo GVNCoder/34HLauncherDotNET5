@@ -61,6 +61,10 @@ namespace Launcher.App.ViewModels
             _updateDownloader.OnDownloadError += _OnDownloadError;
             _updateDownloader.OnDownloadCompleted += _OnDownloadCompleted;
             _updateDownloader.OnDownloadProgress += _OnDownloadProcess;
+
+            // create commands
+            ViewLoadedCommand = new AsyncRelayCommand<Window>(_ViewLoadedExecuteCommand);
+            ViewUnloadedCommand = new RelayCommand<object>(_ViewUnloadedExecuteCommand);
         }
 
         #endregion
@@ -79,7 +83,7 @@ namespace Launcher.App.ViewModels
 
         #region Commands
 
-        public ICommand ViewLoadedCommand => new AsyncRelayCommand<Window>(_ViewLoadedExecuteCommand);
+        public ICommand ViewLoadedCommand { get; }
 
         private async Task _ViewLoadedExecuteCommand(Window view)
         {
@@ -105,7 +109,7 @@ namespace Launcher.App.ViewModels
             }
         }
 
-        public ICommand ViewUnloadedCommand => new RelayCommand<object>(_ViewUnloadedExecuteCommand);
+        public ICommand ViewUnloadedCommand { get; }
 
         private void _ViewUnloadedExecuteCommand(object parameter)
         {
