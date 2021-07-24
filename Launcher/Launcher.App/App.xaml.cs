@@ -1,7 +1,9 @@
 ﻿using System;
 using System.IO;
 using System.Reflection;
+using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Threading;
 using Microsoft.Extensions.DependencyInjection;
 
 using Launcher.App.ViewModels;
@@ -54,6 +56,16 @@ namespace Launcher
 
         #region Startup
 
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            base.OnStartup(e);
+
+            // track all unhandled exceptions
+            AppDomain.CurrentDomain.UnhandledException += _OnAppDomainOnUnhandledException;
+            TaskScheduler.UnobservedTaskException += TaskSchedulerOnUnobservedTaskException;
+            Current.DispatcherUnhandledException += CurrentOnDispatcherUnhandledException;
+        }
+
         protected override void OnExit(ExitEventArgs e)
         {
             base.OnExit(e);
@@ -89,6 +101,42 @@ namespace Launcher
                 .CreateLogger();
         }
 
-#endregion
+        private static void _OnAppDomainOnUnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            if (e.IsTerminating)
+            {
+                Log.Fatal((Exception) e.ExceptionObject, $"{nameof(AppDomain)}");
+            }
+            else
+            {
+                Log.Error((Exception) e.ExceptionObject, $"{nameof(AppDomain)}");
+            }
+        }
+
+        private static void CurrentOnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
+        {
+            if (e.Handled)
+            {
+                Log.Error(e.Exception, $"{nameof(LauncherApp)}");
+            }
+            else
+            {
+                Log.Fatal(e.Exception, $"{nameof(LauncherApp)}");
+            }
+        }
+
+        private void TaskSchedulerOnUnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs e)
+        {
+            if (e.Observed)
+            {
+                Log.Error(e.Exception, $"{nameof(LauncherApp)}");
+            }
+            else
+            {
+                Log.Fatal(e.Exception, $"{nameof(LauncherApp)}");
+            }
+        }
+
+        #endregion
     }
 }
