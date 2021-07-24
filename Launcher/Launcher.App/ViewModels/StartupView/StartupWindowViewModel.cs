@@ -1,7 +1,13 @@
 ﻿// ReSharper disable CheckNamespace
 // ReSharper disable MemberCanBeMadeStatic.Global
 
+using System;
+using System.Diagnostics;
+using System.IO;
+using System.IO.Compression;
 using System.Reflection;
+using System.Security.Cryptography;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
@@ -9,7 +15,6 @@ using Launcher.Commands;
 using Launcher.Core.Models;
 using Launcher.Core.Services;
 using Launcher.Core.Utilities;
-
 using Serilog;
 
 namespace Launcher.App.ViewModels
@@ -23,6 +28,8 @@ namespace Launcher.App.ViewModels
 #else
         private const string LauncherUpdateDescriptionLink = @"";
 #endif
+        private const string UpdaterFileName = "Updater.exe";
+        private const string UpdateFilesDirectoryName = "UpdateFiles";
 
         #endregion
 
@@ -35,6 +42,9 @@ namespace Launcher.App.ViewModels
         private readonly ILogger _logger;
         private readonly IUpdateChecker _updateChecker;
         private readonly IUpdateDownloader _updateDownloader;
+
+        private UpdateDescription _updateDescription;
+        private Window _currentView;
 
         #region Ctor
 
@@ -69,8 +79,12 @@ namespace Launcher.App.ViewModels
 
         #region Commands
 
-        public ICommand ViewLoadedCommand => new AsyncRelayCommand<object>(async parameter =>
+        public ICommand ViewLoadedCommand => new AsyncRelayCommand<Window>(_ViewLoadedExecuteCommand);
+
+        private async Task _ViewLoadedExecuteCommand(Window view)
         {
+            _currentView = view;
+
             var currentAssemblyName = Assembly.GetExecutingAssembly()
                 .GetName();
             var isNewVersionAvailable =
@@ -82,17 +96,24 @@ namespace Launcher.App.ViewModels
                 var updateDescription = _updateChecker.UpdateDescription;
                 var updateDestinationPath = FileSystemUtility.GetTemporaryDirectory();
 
+                _updateDescription = updateDescription;
                 _updateDownloader.Download(updateDescription.DownloadLink, updateDestinationPath);
             }
-        });
+            else
+            {
+                _ShowMainWindow();
+            }
+        }
 
-        public ICommand ViewUnloadedCommand => new RelayCommand<object>(parameter =>
+        public ICommand ViewUnloadedCommand => new RelayCommand<object>(_ViewUnloadedExecuteCommand);
+
+        private void _ViewUnloadedExecuteCommand(object parameter)
         {
             _updateChecker.OnUpdateCheckError -= _OnUpdateCheckError;
             _updateDownloader.OnDownloadError -= _OnDownloadError;
             _updateDownloader.OnDownloadCompleted -= _OnDownloadCompleted;
             _updateDownloader.OnDownloadProgress -= _OnDownloadProcess;
-        });
+        }
 
         #endregion
 
@@ -106,12 +127,83 @@ namespace Launcher.App.ViewModels
 
         private void _OnDownloadCompleted(object sender, UpdateDownloadCompletedEventArgs e)
         {
-            // TODO: Do some stuff with update file here...
+            // TODO: Extract to IUpdater impl
+
+            // compute update file hash
+            using (var fileSteam = File.Open(e.DownloadedFilePath, FileMode.Open, FileAccess.Read))
+            using (var md5 = MD5.Create())
+            {
+                var updateHashBytes = md5.ComputeHash(fileSteam);
+                var encodedUpdateHash = BitConverter.ToString(updateHashBytes)
+                    .Replace("-", string.Empty)
+                    .ToLower();
+
+                // validate update file
+                if (encodedUpdateHash != _updateDescription.ZipHash)
+                {
+                    _logger.Warning("The update file is corrupted");
+
+                    return;
+                }
+            }
+
+            // unpack update
+            var updateDirectory = Path.GetDirectoryName(e.DownloadedFilePath);
+
+            ZipFile.ExtractToDirectory(e.DownloadedFilePath, updateDirectory);
+
+            // run updater
+            var updaterPath = Path.Combine(updateDirectory, UpdaterFileName);
+            var launcherBackPath = Process.GetCurrentProcess().MainModule?.FileName;
+            var updateFilesPath = Path.Combine(updateDirectory, UpdateFilesDirectoryName);
+
+            var process = new Process();
+            var processRunInfo = new ProcessStartInfo
+            {
+                FileName = updaterPath,
+                CreateNoWindow = true,
+                UseShellExecute = false,
+                Arguments = string.Join('|', $"updateFilesPath={updateFilesPath}", $"processBackPath={launcherBackPath}"),
+                Verb = "runas"
+            };
+
+            // apply settings
+            process.StartInfo = processRunInfo;
+
+            // try run updater
+            try
+            {
+                var runResult = process.Start();
+                if (runResult == false)
+                {
+                    _logger.Warning("Can't start a new process");
+                }
+                else
+                {
+                    _ShowMainWindow();
+                }
+            }
+            catch (Exception exception)
+            {
+                _logger.Error(exception, "Can't start a new process");
+            }
         }
 
         private void _OnDownloadProcess(object sender, UpdateDownloadProgressEventArgs e)
         {
             UpdateDownloadPercentProgress = e.PercentProgress;
+        }
+
+        private void _ShowMainWindow()
+        {
+            _currentView.Hide();
+
+            var mainWindow = new MainWindow();
+
+            mainWindow.Show();
+            mainWindow.ShowActivated = true;
+
+            _currentView.Close();
         }
 
         #endregion
