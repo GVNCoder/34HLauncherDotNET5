@@ -40,8 +40,7 @@ namespace Launcher.App.ViewModels
         #endregion
 
         private readonly ILogger _logger;
-        private readonly IUpdateChecker _updateChecker;
-        private readonly IUpdateDownloader _updateDownloader;
+        private readonly IApplicationUpdater _applicationUpdater;
 
         private UpdateDescription _updateDescription;
         private Window _currentView;
@@ -50,17 +49,15 @@ namespace Launcher.App.ViewModels
 
         public StartupWindowViewModel(
             ILogger logger
-            , IUpdateChecker updateChecker
-            , IUpdateDownloader updateDownloader)
+            , IApplicationUpdater applicationUpdater)
         {
             _logger = logger;
-            _updateChecker = updateChecker;
-            _updateDownloader = updateDownloader;
+            _applicationUpdater = applicationUpdater;
 
-            _updateChecker.OnUpdateCheckError += _OnUpdateCheckError;
-            _updateDownloader.OnDownloadError += _OnDownloadError;
-            _updateDownloader.OnDownloadCompleted += _OnDownloadCompleted;
-            _updateDownloader.OnDownloadProgress += _OnDownloadProcess;
+            _applicationUpdater.OnCheckForUpdateCompleted += _OnUpdaterCheckForUpdateCompleted;
+            _applicationUpdater.OnUpdateDownloadProgress += _OnUpdaterUpdateDownloadProgress;
+            _applicationUpdater.OnUpdateDownloadCompleted += _OnUpdaterUpdateDownloadCompleted;
+            _applicationUpdater.OnError += _OnUpdaterError;
 
             // create commands
             ViewLoadedCommand = new AsyncRelayCommand<Window>(_ViewLoadedExecuteCommand);
@@ -85,54 +82,38 @@ namespace Launcher.App.ViewModels
 
         public ICommand ViewLoadedCommand { get; }
 
-        private async Task _ViewLoadedExecuteCommand(Window view)
+        private Task _ViewLoadedExecuteCommand(Window view)
         {
             _currentView = view;
 
             var currentAssemblyName = Assembly.GetExecutingAssembly()
                 .GetName();
-            var isNewVersionAvailable =
-                await _updateChecker.IsNewVersionAvailableAsync(LauncherUpdateDescriptionLink,
-                    currentAssemblyName.Version);
 
-            if (isNewVersionAvailable)
-            {
-                var updateDescription = _updateChecker.UpdateDescription;
-                var updateDestinationPath = FileSystemUtility.GetTemporaryDirectory();
-
-                _updateDescription = updateDescription;
-                _updateDownloader.Download(updateDescription.DownloadLink, updateDestinationPath);
-            }
-            else
-            {
-                _ShowMainWindow();
-            }
+            // begin check for updates
+            return _applicationUpdater.CheckForUpdatesAsync(LauncherUpdateDescriptionLink, currentAssemblyName.Version);
         }
 
         public ICommand ViewUnloadedCommand { get; }
 
         private void _ViewUnloadedExecuteCommand(object parameter)
         {
-            _updateChecker.OnUpdateCheckError -= _OnUpdateCheckError;
-            _updateDownloader.OnDownloadError -= _OnDownloadError;
-            _updateDownloader.OnDownloadCompleted -= _OnDownloadCompleted;
-            _updateDownloader.OnDownloadProgress -= _OnDownloadProcess;
+            _applicationUpdater.OnCheckForUpdateCompleted -= _OnUpdaterCheckForUpdateCompleted;
+            _applicationUpdater.OnUpdateDownloadProgress -= _OnUpdaterUpdateDownloadProgress;
+            _applicationUpdater.OnUpdateDownloadCompleted -= _OnUpdaterUpdateDownloadCompleted;
+            _applicationUpdater.OnError -= _OnUpdaterError;
         }
 
         #endregion
 
         #region Private helpers
 
-        private void _OnUpdateCheckError(object sender, UpdateCheckErrorEventArgs e)
-            => _logger.Warning(e.Exception, e.Message);
-
-        private void _OnDownloadError(object sender, UpdateDownloadErrorEventArgs e)
-            => _logger.Warning(e.Exception, e.Message);
-
-        private void _OnDownloadCompleted(object sender, UpdateDownloadCompletedEventArgs e)
+        private void _OnUpdaterError(object sender, ErrorOccuredEventArgs e)
         {
-            // TODO: Extract to IUpdater impl
+            _logger.Warning(e.Exception, e.Message);
+        }
 
+        private void _OnUpdaterUpdateDownloadCompleted(object sender, DownloadCompletedEventArgs e)
+        {
             // compute update file hash
             using (var fileSteam = File.Open(e.DownloadedFilePath, FileMode.Open, FileAccess.Read))
             using (var md5 = MD5.Create())
@@ -193,9 +174,26 @@ namespace Launcher.App.ViewModels
             }
         }
 
-        private void _OnDownloadProcess(object sender, UpdateDownloadProgressEventArgs e)
+        private void _OnUpdaterUpdateDownloadProgress(object sender, DownloadProgressEventArgs e)
         {
             UpdateDownloadPercentProgress = e.PercentProgress;
+        }
+
+        private void _OnUpdaterCheckForUpdateCompleted(object sender, CheckForUpdateEventArgs e)
+        {
+            if (e.IsUpdateAvailable)
+            {
+                var updateDescription = e.UpdateDescription;
+                var updateDestinationPath = FileSystemUtility.GetTemporaryDirectory();
+
+                // begin update download
+                _updateDescription = updateDescription;
+                _applicationUpdater.Download(updateDescription.DownloadLink, updateDestinationPath);
+            }
+            else
+            {
+                _ShowMainWindow();
+            }
         }
 
         private void _ShowMainWindow()

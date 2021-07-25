@@ -2,11 +2,11 @@
 
 namespace Launcher.Core.Models
 {
-    public class UpdateDownloadProgressEventArgs : EventArgs
+    public class DownloadProgressEventArgs : EventArgs
     {
         public int PercentProgress { get; }
 
-        public UpdateDownloadProgressEventArgs(int percentProgress)
+        public DownloadProgressEventArgs(int percentProgress)
         {
             PercentProgress = percentProgress;
         }

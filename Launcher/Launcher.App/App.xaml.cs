@@ -38,8 +38,7 @@ namespace Launcher
             var serviceCollection = new ServiceCollection();
 
             // register services
-            serviceCollection.AddTransient<IUpdateChecker, UpdateChecker>();
-            serviceCollection.AddTransient<IUpdateDownloader, UpdateDownloader>();
+            serviceCollection.AddTransient<IApplicationUpdater, ApplicationUpdater>();
             serviceCollection.AddSingleton<ILogger>(Log.Logger);
 
             // register viewModels
@@ -47,9 +46,6 @@ namespace Launcher
 
             // create container
             Container = serviceCollection.BuildServiceProvider();
-
-            Log.Debug("Some text here");
-            Log.Debug("Some text here");
         }
 
         #endregion
