@@ -89,7 +89,7 @@ namespace Launcher
 #endif
                 .Enrich.WithProperty("appVersion", $"{currentAssemblyName.Version}-{ReleaseCandidature}")
                 .WriteTo.File(outputFile,
-                    fileSizeLimitBytes: 1024,
+                    fileSizeLimitBytes: 1048576, // 1 MBytes
                     rollOnFileSizeLimit: true,
                     retainedFileCountLimit: null,
                     buffered: true,

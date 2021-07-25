@@ -12,6 +12,7 @@ using System.Windows;
 using System.Windows.Input;
 
 using Launcher.Commands;
+using Launcher.Core.Extensions;
 using Launcher.Core.Models;
 using Launcher.Core.Services;
 using Launcher.Core.Utilities;
@@ -30,12 +31,6 @@ namespace Launcher.App.ViewModels
 #else
         private const string LauncherUpdateDescriptionLink = @"";
 #endif
-
-        #endregion
-
-        #region Window settings
-
-        public static string Title { get; } = "34H Launcher";
 
         #endregion
 
@@ -60,7 +55,7 @@ namespace Launcher.App.ViewModels
             _applicationUpdater.OnError += _OnUpdaterError;
 
             // create commands
-            ViewLoadedCommand = new AsyncRelayCommand<Window>(_ViewLoadedExecuteCommand);
+            ViewLoadedCommand = new RelayCommand<Window>(_ViewLoadedExecuteCommand);
             ViewUnloadedCommand = new RelayCommand<object>(_ViewUnloadedExecuteCommand);
         }
 
@@ -82,7 +77,7 @@ namespace Launcher.App.ViewModels
 
         public ICommand ViewLoadedCommand { get; }
 
-        private Task _ViewLoadedExecuteCommand(Window view)
+        private void _ViewLoadedExecuteCommand(Window view)
         {
             _currentView = view;
 
@@ -90,7 +85,8 @@ namespace Launcher.App.ViewModels
                 .GetName();
 
             // begin check for updates
-            return _applicationUpdater.CheckForUpdatesAsync(LauncherUpdateDescriptionLink, currentAssemblyName.Version);
+            _applicationUpdater.CheckForUpdatesAsync(LauncherUpdateDescriptionLink, currentAssemblyName.Version)
+                .Forget();
         }
 
         public ICommand ViewUnloadedCommand { get; }
