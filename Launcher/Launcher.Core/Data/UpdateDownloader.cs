@@ -1,21 +1,23 @@
-﻿using Launcher.Core.Models;
-
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.Net;
 
+using Launcher.Core.Models;
+using Launcher.Core.Services;
+
 namespace Launcher.Core.Data
 {
-    public partial class ApplicationUpdater
+    public class UpdateDownloader : IUpdateDownloader
     {
         private string _destinationFilePath;
 
-        public event EventHandler<DownloadCompletedEventArgs> OnUpdateDownloadCompleted;
+        #region IUpdateDownloader
+
         public event EventHandler<DownloadProgressEventArgs> OnUpdateDownloadProgress;
+        public event EventHandler<DownloadCompletedEventArgs> OnUpdateDownloadCompleted;
+        public event EventHandler<ErrorOccuredEventArgs> OnError;
 
-        #region IApplicationUpdater
-
-        public void Download(string downloadLink, string destinationPath)
+        public void DownloadAsync(string downloadLink, string destinationPath)
         {
             _destinationFilePath = destinationPath;
 
@@ -31,7 +33,7 @@ namespace Launcher.Core.Data
             }
             catch (WebException webException)
             {
-                _RaiseOnError($"{nameof(Download)}", webException);
+                _RaiseOnError($"{nameof(DownloadAsync)}", webException);
                 _RaiseOnUpdateDownloadCompleted(false);
             }
         }
@@ -63,6 +65,9 @@ namespace Launcher.Core.Data
 
         private void _RaiseOnUpdateDownloadProgress(int percentProgress)
             => OnUpdateDownloadProgress?.Invoke(this, new DownloadProgressEventArgs(percentProgress));
+
+        private void _RaiseOnError(string message, Exception exception = null)
+            => OnError?.Invoke(this, new ErrorOccuredEventArgs(message, exception));
 
         #endregion
     }

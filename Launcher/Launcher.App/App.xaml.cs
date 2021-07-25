@@ -38,7 +38,9 @@ namespace Launcher
             var serviceCollection = new ServiceCollection();
 
             // register services
-            serviceCollection.AddTransient<IApplicationUpdater, ApplicationUpdater>();
+            serviceCollection.AddTransient<IUpdateChecker, UpdateChecker>();
+            serviceCollection.AddTransient<IUpdateDownloader, UpdateDownloader>();
+            serviceCollection.AddTransient<IUpdateInstaller, UpdateInstaller>();
             serviceCollection.AddSingleton<ILogger>(Log.Logger);
 
             // register viewModels
@@ -59,7 +61,7 @@ namespace Launcher
             // track all unhandled exceptions
             AppDomain.CurrentDomain.UnhandledException += _OnAppDomainOnUnhandledException;
             TaskScheduler.UnobservedTaskException += TaskSchedulerOnUnobservedTaskException;
-            Current.DispatcherUnhandledException += CurrentOnDispatcherUnhandledException;
+            //Current.DispatcherUnhandledException += CurrentOnDispatcherUnhandledException;
         }
 
         protected override void OnExit(ExitEventArgs e)
@@ -119,6 +121,8 @@ namespace Launcher
             {
                 Log.Fatal(e.Exception, $"{nameof(LauncherApp)}");
             }
+
+            //e.Handled = true;
         }
 
         private void TaskSchedulerOnUnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs e)

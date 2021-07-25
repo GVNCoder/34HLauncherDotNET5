@@ -1,13 +1,7 @@
 ﻿// ReSharper disable CheckNamespace
 // ReSharper disable MemberCanBeMadeStatic.Global
 
-using System;
-using System.Diagnostics;
-using System.IO;
-using System.IO.Compression;
 using System.Reflection;
-using System.Security.Cryptography;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
@@ -35,7 +29,9 @@ namespace Launcher.App.ViewModels
         #endregion
 
         private readonly ILogger _logger;
-        private readonly IApplicationUpdater _applicationUpdater;
+        private readonly IUpdateChecker _updateChecker;
+        private readonly IUpdateDownloader _updateDownloader;
+        private readonly IUpdateInstaller _updateInstaller;
 
         private UpdateDescription _updateDescription;
         private Window _currentView;
@@ -44,15 +40,21 @@ namespace Launcher.App.ViewModels
 
         public StartupWindowViewModel(
             ILogger logger
-            , IApplicationUpdater applicationUpdater)
+            , IUpdateChecker updateChecker
+            , IUpdateDownloader updateDownloader
+            , IUpdateInstaller updateInstaller)
         {
             _logger = logger;
-            _applicationUpdater = applicationUpdater;
+            _updateChecker = updateChecker;
+            _updateDownloader = updateDownloader;
+            _updateInstaller = updateInstaller;
 
-            _applicationUpdater.OnCheckForUpdateCompleted += _OnUpdaterCheckForUpdateCompleted;
-            _applicationUpdater.OnUpdateDownloadProgress += _OnUpdaterUpdateDownloadProgress;
-            _applicationUpdater.OnUpdateDownloadCompleted += _OnUpdaterUpdateDownloadCompleted;
-            _applicationUpdater.OnError += _OnUpdaterError;
+            _updateChecker.OnCheckForUpdateCompleted += _OnUpdaterCheckForUpdateCompleted;
+            _updateChecker.OnError += _OnUpdaterError;
+
+            _updateDownloader.OnUpdateDownloadCompleted += _OnUpdaterUpdateDownloadCompleted;
+            _updateDownloader.OnUpdateDownloadProgress += _OnUpdaterUpdateDownloadProgress;
+            _updateDownloader.OnError += _OnUpdaterError;
 
             // create commands
             ViewLoadedCommand = new RelayCommand<Window>(_ViewLoadedExecuteCommand);
@@ -81,11 +83,8 @@ namespace Launcher.App.ViewModels
         {
             _currentView = view;
 
-            var currentAssemblyName = Assembly.GetExecutingAssembly()
-                .GetName();
-
             // begin check for updates
-            _applicationUpdater.CheckForUpdatesAsync(LauncherUpdateDescriptionLink, currentAssemblyName.Version)
+            _updateChecker.CheckForUpdatesAsync(LauncherUpdateDescriptionLink)
                 .Forget();
         }
 
@@ -93,10 +92,12 @@ namespace Launcher.App.ViewModels
 
         private void _ViewUnloadedExecuteCommand(object parameter)
         {
-            _applicationUpdater.OnCheckForUpdateCompleted -= _OnUpdaterCheckForUpdateCompleted;
-            _applicationUpdater.OnUpdateDownloadProgress -= _OnUpdaterUpdateDownloadProgress;
-            _applicationUpdater.OnUpdateDownloadCompleted -= _OnUpdaterUpdateDownloadCompleted;
-            _applicationUpdater.OnError -= _OnUpdaterError;
+            _updateChecker.OnCheckForUpdateCompleted -= _OnUpdaterCheckForUpdateCompleted;
+            _updateChecker.OnError -= _OnUpdaterError;
+
+            _updateDownloader.OnUpdateDownloadCompleted -= _OnUpdaterUpdateDownloadCompleted;
+            _updateDownloader.OnUpdateDownloadProgress -= _OnUpdaterUpdateDownloadProgress;
+            _updateDownloader.OnError -= _OnUpdaterError;
         }
 
         #endregion
@@ -110,63 +111,9 @@ namespace Launcher.App.ViewModels
 
         private void _OnUpdaterUpdateDownloadCompleted(object sender, DownloadCompletedEventArgs e)
         {
-            // compute update file hash
-            using (var fileSteam = File.Open(e.DownloadedFilePath, FileMode.Open, FileAccess.Read))
-            using (var md5 = MD5.Create())
+            if (e.Successful)
             {
-                var updateHashBytes = md5.ComputeHash(fileSteam);
-                var encodedUpdateHash = BitConverter.ToString(updateHashBytes)
-                    .Replace("-", string.Empty)
-                    .ToLower();
-
-                // validate update file
-                if (encodedUpdateHash != _updateDescription.ZipHash)
-                {
-                    _logger.Warning("The update file is corrupted");
-
-                    return;
-                }
-            }
-
-            // unpack update
-            var updateDirectory = Path.GetDirectoryName(e.DownloadedFilePath);
-
-            ZipFile.ExtractToDirectory(e.DownloadedFilePath, updateDirectory);
-
-            // run updater
-            var updaterPath = Path.Combine(updateDirectory, _updateDescription.UpdaterFileName);
-            var launcherBackPath = Process.GetCurrentProcess().MainModule?.FileName;
-            var updateFilesPath = Path.Combine(updateDirectory, _updateDescription.UpdateFilesDirectoryName);
-
-            var process = new Process();
-            var processRunInfo = new ProcessStartInfo
-            {
-                FileName = updaterPath,
-                CreateNoWindow = true,
-                UseShellExecute = false,
-                Arguments = string.Join('|', $"updateFilesPath={updateFilesPath}", $"processBackPath={launcherBackPath}"),
-                Verb = "runas"
-            };
-
-            // apply settings
-            process.StartInfo = processRunInfo;
-
-            // try run updater
-            try
-            {
-                var runResult = process.Start();
-                if (runResult == false)
-                {
-                    _logger.Warning("Can't start a new process");
-                }
-                else
-                {
-                    _ShowMainWindow();
-                }
-            }
-            catch (Exception exception)
-            {
-                _logger.Error(exception, "Can't start a new process");
+                _applicationUpdater.Install(e.DownloadedFilePath, _updateDescription);
             }
         }
 
@@ -177,14 +124,18 @@ namespace Launcher.App.ViewModels
 
         private void _OnUpdaterCheckForUpdateCompleted(object sender, CheckForUpdateEventArgs e)
         {
-            if (e.IsUpdateAvailable)
+            var currentAssemblyName = Assembly.GetExecutingAssembly()
+                .GetName();
+            var updateDescription = e.UpdateDescription;
+
+            if (updateDescription != null && updateDescription.LatestVersion > currentAssemblyName.Version)
             {
-                var updateDescription = e.UpdateDescription;
+                _updateDescription = updateDescription;
                 var updateDestinationPath = FileSystemUtility.GetTemporaryDirectory();
 
                 // begin update download
                 _updateDescription = updateDescription;
-                _applicationUpdater.Download(updateDescription.DownloadLink, updateDestinationPath);
+                _updateDownloader.DownloadAsync(updateDescription.DownloadLink, updateDestinationPath);
             }
             else
             {
