@@ -21,6 +21,12 @@ namespace Launcher.Core.Data
 
         public void CleanupFiles(string updaterFileName, string updateDirectoryPath)
         {
+            // validate arguments
+            if (string.IsNullOrWhiteSpace(updaterFileName) || string.IsNullOrWhiteSpace(updateDirectoryPath))
+            {
+                return;
+            }
+
             // wait for close updater process
             var updaterProcessName = Path.GetFileNameWithoutExtension(updateDirectoryPath);
             var updaterProcess = Process.GetProcessesByName(updaterProcessName)
@@ -60,7 +66,7 @@ namespace Launcher.Core.Data
 
             // build process run arguments
             var processStartArguments = JsonConvert.SerializeObject(new
-                { updateFilesPath, processBackPath = launcherBackPath, deleteListFileName = updateDescription.DeleteListFileName });
+                { updateFilesDirPath = updateFilesPath, processBackPath = launcherBackPath, deleteListFileName = updateDescription.DeleteListFileName });
 
             // build process
             var process = new Process

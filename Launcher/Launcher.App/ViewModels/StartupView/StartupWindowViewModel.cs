@@ -16,7 +16,7 @@ using Launcher.Core.Models;
 using Launcher.Core.Services;
 using Launcher.Core.Utilities;
 using Launcher.Views;
-
+using Newtonsoft.Json;
 using Serilog;
 
 namespace Launcher.App.ViewModels
@@ -30,6 +30,8 @@ namespace Launcher.App.ViewModels
 #else
         private const string LauncherUpdateDescriptionLink = @"";
 #endif
+        private const int DefaultArgsCount = 1;
+        private const int FirstRunArgument = DefaultArgsCount + 1;
 
         #endregion
 
@@ -61,6 +63,8 @@ namespace Launcher.App.ViewModels
             _updateDownloader.OnUpdateDownloadProgress += _OnUpdaterUpdateDownloadProgress;
             _updateDownloader.OnError += _OnUpdaterError;
 
+            _updateInstaller.OnError += _OnUpdaterError;
+
             // create commands
             ViewLoadedCommand = new RelayCommand<Window>(_ViewLoadedExecuteCommand);
             ViewUnloadedCommand = new RelayCommand<object>(_ViewUnloadedExecuteCommand);
@@ -88,6 +92,16 @@ namespace Launcher.App.ViewModels
         {
             _currentView = view;
 
+            // validate run args
+            var args = Environment.GetCommandLineArgs();
+            if (args.Length > DefaultArgsCount)
+            {
+                var argument = args[FirstRunArgument];
+                var postUpdateDescription = JsonConvert.DeserializeObject<PostUpdateDescription>(argument);
+
+                _updateInstaller.CleanupFiles(postUpdateDescription.UpdaterFileName, postUpdateDescription.UpdateDirPath);
+            }
+
             // begin check for updates
             _updateChecker.CheckForUpdatesAsync(LauncherUpdateDescriptionLink)
                 .Forget();
@@ -103,6 +117,8 @@ namespace Launcher.App.ViewModels
             _updateDownloader.OnUpdateDownloadCompleted -= _OnUpdaterUpdateDownloadCompleted;
             _updateDownloader.OnUpdateDownloadProgress -= _OnUpdaterUpdateDownloadProgress;
             _updateDownloader.OnError -= _OnUpdaterError;
+
+            _updateInstaller.OnError -= _OnUpdaterError;
         }
 
         #endregion
