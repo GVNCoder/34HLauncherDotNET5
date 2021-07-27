@@ -7,6 +7,8 @@ using System.Security.Cryptography;
 using Launcher.Core.Models;
 using Launcher.Core.Services;
 
+using Newtonsoft.Json;
+
 namespace Launcher.Core.Data
 {
     public class UpdateInstaller : IUpdateInstaller
@@ -20,25 +22,36 @@ namespace Launcher.Core.Data
             throw new NotImplementedException();
         }
 
-        public bool TryRunUpdater(string updaterFilePath, string updateFilesDirectoryName)
+        public bool TryRunUpdater(string updateDirectoryPath, UpdateDescription updateDescription)
         {
-            var runResult = false;
-            var launcherBackPath = Process.GetCurrentProcess().MainModule?.FileName;
-            var updateDirectory = Path.GetDirectoryName(updaterFilePath);
-            var updateFilesPath = Path.Combine(updateDirectory, updateFilesDirectoryName);
+            // get current process file path
+            var currentProcess = Process.GetCurrentProcess();
+            var mainModule = currentProcess.MainModule;
+            var launcherBackPath = mainModule?.FileName;
 
-            var process = new Process();
-            var processRunInfo = new ProcessStartInfo
+            // build other paths
+            var updaterExecutableFilePath = Path.Combine(updateDirectoryPath, updateDescription.UpdaterFileName);
+            var updateFilesPath = Path.Combine(updateDirectoryPath, updateDescription.UpdateFilesDirectoryName);
+
+            // build process run arguments
+            var processStartArguments = JsonConvert.SerializeObject(new
+                { updateFilesPath, processBackPath = launcherBackPath, deleteListFileName = updateDescription.DeleteListFileName });
+
+            // build process
+            var process = new Process
             {
-                FileName = updaterFilePath,
-                CreateNoWindow = true,
-                UseShellExecute = false,
-                Arguments = string.Join('|', $"updateFilesPath={updateFilesPath}", $"processBackPath={launcherBackPath}"),
-                Verb = "runas"
+                StartInfo = new ProcessStartInfo
+                {
+                    FileName = updaterExecutableFilePath,
+                    WorkingDirectory = updateDirectoryPath,
+                    CreateNoWindow = true,
+                    UseShellExecute = false,
+                    Arguments = processStartArguments,
+                    Verb = "runas"
+                }
             };
 
-            // apply run settings
-            process.StartInfo = processRunInfo;
+            var runResult = false;
 
             // try run updater
             try
@@ -55,8 +68,6 @@ namespace Launcher.Core.Data
 
         public bool TryUnpackUpdateFiles(string updateFilePath)
         {
-            var isErrorOccured = false;
-
             try
             {
                 var updateDirectory = Path.GetDirectoryName(updateFilePath);
@@ -65,10 +76,10 @@ namespace Launcher.Core.Data
             catch (Exception exception)
             {
                 _RaiseOnError($"{nameof(TryUnpackUpdateFiles)}", exception);
-                isErrorOccured = true;
+                return false;
             }
 
-            return isErrorOccured;
+            return true;
         }
 
         public bool ValidateUpdateFileHash(string updateFilePath, string targetFileHash)

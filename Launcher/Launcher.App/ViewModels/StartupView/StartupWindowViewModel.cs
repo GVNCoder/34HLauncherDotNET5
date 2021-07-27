@@ -1,6 +1,10 @@
 ﻿// ReSharper disable CheckNamespace
 // ReSharper disable MemberCanBeMadeStatic.Global
+// ReSharper disable LoopCanBeConvertedToQuery
 
+using System;
+using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Input;
@@ -111,9 +115,28 @@ namespace Launcher.App.ViewModels
 
         private void _OnUpdaterUpdateDownloadCompleted(object sender, DownloadCompletedEventArgs e)
         {
-            if (e.Successful)
+            if (e.Successful == false)
             {
-                _applicationUpdater.Install(e.DownloadedFilePath, _updateDescription);
+                _ShowMainWindow();
+            }
+
+            // prepare arguments
+            var downloadedFilePath = e.DownloadedFilePath;
+            var updateDirectory = Path.GetDirectoryName(downloadedFilePath);
+
+            // build update steps
+            var updateSteps = new Func<bool>[]
+            {
+                () => _updateInstaller.ValidateUpdateFileHash(downloadedFilePath, _updateDescription.ZipHash),
+                () => _updateInstaller.TryUnpackUpdateFiles(downloadedFilePath),
+                () => _updateInstaller.TryRunUpdater(updateDirectory, _updateDescription)
+            };
+
+            // try to update step by step
+            var stepsResults = updateSteps.Any(us => us.Invoke() == false);
+            if (stepsResults)
+            {
+                _ShowMainWindow();
             }
         }
 

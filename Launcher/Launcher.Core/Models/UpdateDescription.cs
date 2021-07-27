@@ -1,4 +1,6 @@
-﻿using System;
+﻿// ReSharper disable UnusedAutoPropertyAccessor.Global
+
+using System;
 
 namespace Launcher.Core.Models
 {
@@ -8,6 +10,7 @@ namespace Launcher.Core.Models
         public Version LatestVersion { get; set; }
         public string ZipHash { get; set; }
         public string UpdaterFileName { get; set; }
+        public string DeleteListFileName { get; set; }
         public string UpdateFilesDirectoryName { get; set; }
     }
 }
