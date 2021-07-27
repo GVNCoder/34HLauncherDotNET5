@@ -1,6 +1,7 @@
 ﻿// ReSharper disable CheckNamespace
 // ReSharper disable MemberCanBeMadeStatic.Global
 // ReSharper disable LoopCanBeConvertedToQuery
+// ReSharper disable InvertIf
 
 using System;
 using System.IO;
@@ -136,6 +137,8 @@ namespace Launcher.App.ViewModels
             var stepsResults = updateSteps.Any(us => us.Invoke() == false);
             if (stepsResults)
             {
+                // try to cleanup update files
+                _updateInstaller.CleanupFiles(_updateDescription.UpdaterFileName, updateDirectory);
                 _ShowMainWindow();
             }
         }

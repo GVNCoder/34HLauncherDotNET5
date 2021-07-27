@@ -2,7 +2,9 @@
 using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
+using System.Linq;
 using System.Security.Cryptography;
+using System.Threading;
 
 using Launcher.Core.Models;
 using Launcher.Core.Services;
@@ -17,9 +19,32 @@ namespace Launcher.Core.Data
 
         public event EventHandler<ErrorOccuredEventArgs> OnError;
 
-        public void CleanupFiles(string updatesDirectory)
+        public void CleanupFiles(string updaterFileName, string updateDirectoryPath)
         {
-            throw new NotImplementedException();
+            // wait for close updater process
+            var updaterProcessName = Path.GetFileNameWithoutExtension(updateDirectoryPath);
+            var updaterProcess = Process.GetProcessesByName(updaterProcessName)
+                .FirstOrDefault();
+
+            if (updaterProcess != null)
+            {
+                var waitEvent = new ManualResetEvent(false);
+
+                updaterProcess.EnableRaisingEvents = true;
+                updaterProcess.Exited += (sender, args) => waitEvent.Set();
+
+                waitEvent.WaitOne();
+            }
+
+            // try delete directory
+            try
+            {
+                Directory.Delete(updateDirectoryPath, true);
+            }
+            catch (Exception exception)
+            {
+                _RaiseOnError($"{nameof(CleanupFiles)}", exception);
+            }
         }
 
         public bool TryRunUpdater(string updateDirectoryPath, UpdateDescription updateDescription)

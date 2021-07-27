@@ -10,6 +10,6 @@ namespace Launcher.Core.Services
         bool ValidateUpdateFileHash(string updateFilePath, string targetFileHash);
         bool TryUnpackUpdateFiles(string updateFilePath);
         bool TryRunUpdater(string updateDirectoryPath, UpdateDescription updateDescription);
-        void CleanupFiles(string updateDirectory);
+        void CleanupFiles(string updaterFileName, string updateDirectoryPath);
     }
 }
