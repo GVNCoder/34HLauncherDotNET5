@@ -16,6 +16,7 @@ using Launcher.Core.Models;
 using Launcher.Core.Services;
 using Launcher.Core.Utilities;
 using Launcher.Views;
+
 using Newtonsoft.Json;
 using Serilog;
 

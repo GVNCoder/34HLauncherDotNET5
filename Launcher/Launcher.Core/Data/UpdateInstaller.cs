@@ -24,11 +24,12 @@ namespace Launcher.Core.Data
             // validate arguments
             if (string.IsNullOrWhiteSpace(updaterFileName) || string.IsNullOrWhiteSpace(updateDirectoryPath))
             {
+                _RaiseOnError($"{nameof(CleanupFiles)}", new ArgumentException($"{nameof(updaterFileName)} or {nameof(updateDirectoryPath)}"));
                 return;
             }
 
             // wait for close updater process
-            var updaterProcessName = Path.GetFileNameWithoutExtension(updateDirectoryPath);
+            var updaterProcessName = Path.GetFileNameWithoutExtension(updaterFileName);
             var updaterProcess = Process.GetProcessesByName(updaterProcessName)
                 .FirstOrDefault();
 
