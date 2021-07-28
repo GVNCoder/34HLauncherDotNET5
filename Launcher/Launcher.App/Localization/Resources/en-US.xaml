@@ -1,0 +1,9 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:system="clr-namespace:System;assembly=System.Runtime">
+
+    <!--  Startup window view  -->
+    <system:String x:Key="startupView_CheckingForUpdatesTitleLabel">Checking for updates</system:String>
+
+</ResourceDictionary>

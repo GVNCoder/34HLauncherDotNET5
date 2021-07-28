@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Launcher.App.ViewModels;
 using Launcher.Core.Data;
 using Launcher.Core.Services;
+using Launcher.Localization;
 
 using Serilog;
 
@@ -62,6 +63,9 @@ namespace Launcher
             AppDomain.CurrentDomain.UnhandledException += _OnAppDomainOnUnhandledException;
             TaskScheduler.UnobservedTaskException += TaskSchedulerOnUnobservedTaskException;
             //Current.DispatcherUnhandledException += CurrentOnDispatcherUnhandledException;
+
+            // init some static managers
+            LocalizationManager.Init(Resources);
         }
 
         protected override void OnExit(ExitEventArgs e)

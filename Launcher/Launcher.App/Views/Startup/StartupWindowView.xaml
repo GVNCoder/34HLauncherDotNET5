@@ -10,6 +10,7 @@
     Title="34H Launcher"
     Width="300"
     Height="250"
+    Background="#252525"
     DataContext="{Binding Source={StaticResource Locator}, Path=StartupWindowViewModel}"
     ResizeMode="NoResize"
     WindowStartupLocation="CenterScreen"
@@ -25,5 +26,40 @@
         </i:EventTrigger>
     </i:Interaction.Triggers>
 
-    <Grid />
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <TextBlock
+            Grid.Row="0"
+            Margin="0,0,0,-5"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Bottom"
+            FontSize="68"
+            FontWeight="SemiBold"
+            Text="34H">
+            <TextBlock.Foreground>
+                <LinearGradientBrush StartPoint="0 0" EndPoint="1 1">
+                    <GradientStop Offset="0" Color="#6F81CC" />
+                    <GradientStop Offset="1" Color="#C346F6" />
+                </LinearGradientBrush>
+            </TextBlock.Foreground>
+        </TextBlock>
+        <Border Grid.Row="1" Margin="0,35,0,0">
+            <Grid HorizontalAlignment="Center">
+                <TextBlock
+                    FontSize="18"
+                    FontWeight="Light"
+                    Foreground="DarkGray"
+                    Text="{DynamicResource startupView_CheckingForUpdatesTitleLabel}"
+                    Visibility="Collapsed" />
+                <ProgressBar
+                    Width="160"
+                    Height="10"
+                    VerticalAlignment="Top"
+                    Value="{Binding UpdateDownloadPercentProgress, Mode=OneWay}" />
+            </Grid>
+        </Border>
+    </Grid>
 </Window>
