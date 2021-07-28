@@ -9,9 +9,12 @@
     <Application.Resources>
         <ResourceDictionary>
             <viewModels:ViewModelLocator x:Key="Locator" />
+            <BooleanToVisibilityConverter x:Key="bool2VisibilityConverter" />
 
             <ResourceDictionary.MergedDictionaries>
+                <!--  Default includes  -->
                 <localization:LocalizationResourceDictionary Source="Localization/Resources/en-US.xaml" />
+                <ResourceDictionary Source="Themes/Resources/Dark.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

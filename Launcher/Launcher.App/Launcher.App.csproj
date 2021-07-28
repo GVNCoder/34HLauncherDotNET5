@@ -39,8 +39,4 @@
     <ProjectReference Include="..\Launcher.Resources\Launcher.Resources.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Themes\Resources\" />
-  </ItemGroup>
-
 </Project>

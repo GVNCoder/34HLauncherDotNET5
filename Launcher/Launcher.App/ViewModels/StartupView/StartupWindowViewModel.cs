@@ -83,6 +83,22 @@ namespace Launcher.App.ViewModels
         public static readonly DependencyProperty UpdateDownloadPercentProgressProperty =
             DependencyProperty.Register("UpdateDownloadPercentProgress", typeof(int), typeof(StartupWindowViewModel), new PropertyMetadata(0));
 
+        public bool IsProgressBarVisible
+        {
+            get => (bool)GetValue(IsProgressBarVisibleProperty);
+            set => SetValue(IsProgressBarVisibleProperty, value);
+        }
+        public static readonly DependencyProperty IsProgressBarVisibleProperty =
+            DependencyProperty.Register("IsProgressBarVisible", typeof(bool), typeof(StartupWindowViewModel), new PropertyMetadata(false));
+
+        public bool IsCheckForUpdatesLabelVisible
+        {
+            get => (bool)GetValue(IsCheckForUpdatesLabelVisibleProperty);
+            set => SetValue(IsCheckForUpdatesLabelVisibleProperty, value);
+        }
+        public static readonly DependencyProperty IsCheckForUpdatesLabelVisibleProperty =
+            DependencyProperty.Register("IsCheckForUpdatesLabelVisible", typeof(bool), typeof(StartupWindowViewModel), new PropertyMetadata(true));
+
         #endregion
 
         #region Commands
@@ -173,6 +189,13 @@ namespace Launcher.App.ViewModels
 
             if (updateDescription != null && updateDescription.LatestVersion > currentAssemblyName.Version)
             {
+                // update UI
+                Dispatcher.Invoke(() =>
+                {
+                    IsCheckForUpdatesLabelVisible = false;
+                    IsProgressBarVisible = true;
+                });
+
                 _updateDescription = updateDescription;
                 var updateDestinationPath = FileSystemUtility.GetTemporaryDirectory();
 
