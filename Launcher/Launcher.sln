@@ -19,6 +19,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TestSamples", "TestSamples"
 		UpdateDescription.json = UpdateDescription.json
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Updater.App", "Updater.App\Updater.App.csproj", "{A516B0DA-EA83-436A-8B00-C4BD6FA45FE5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,6 +39,10 @@ Global
 		{F067ADE8-89FE-4951-B2F6-AADF7FD9D3D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F067ADE8-89FE-4951-B2F6-AADF7FD9D3D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F067ADE8-89FE-4951-B2F6-AADF7FD9D3D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A516B0DA-EA83-436A-8B00-C4BD6FA45FE5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A516B0DA-EA83-436A-8B00-C4BD6FA45FE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A516B0DA-EA83-436A-8B00-C4BD6FA45FE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A516B0DA-EA83-436A-8B00-C4BD6FA45FE5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
