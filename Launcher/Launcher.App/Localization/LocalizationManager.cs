@@ -19,7 +19,7 @@ namespace Launcher.Localization
 
         #region Public interface
 
-        public static IEnumerable<string> Localizations { get; } = new[] { "en-US" };
+        public static IEnumerable<string> AvailableLocalizations { get; } = new[] { "en-US" };
 
         /// <exception cref="InvalidOperationException"></exception>
         public static void Init(ResourceDictionary rootDictionary)
@@ -57,13 +57,15 @@ namespace Launcher.Localization
             _currentLocalizationKey = localizationKey;
         }
 
+        public static string GetTranslation(string key) => (string) _currentLocalizationDictionary[key];
+
         #endregion
 
         #region Private helpers
 
         private static bool _ValidateLocalizationKey(string localizationKey)
         {
-            return Localizations.All(l => l != localizationKey);
+            return AvailableLocalizations.All(l => l != localizationKey);
         }
 
         #endregion

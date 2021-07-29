@@ -10,7 +10,7 @@ using Launcher.App.ViewModels;
 using Launcher.Core.Data;
 using Launcher.Core.Services;
 using Launcher.Localization;
-
+using Launcher.Themes;
 using Serilog;
 
 // ReSharper disable MemberCanBePrivate.Global
@@ -66,6 +66,7 @@ namespace Launcher
 
             // init some static managers
             LocalizationManager.Init(Resources);
+            ThemeManager.Init(Resources);
         }
 
         protected override void OnExit(ExitEventArgs e)

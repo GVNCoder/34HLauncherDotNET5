@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="clr-namespace:Launcher"
     xmlns:localization="clr-namespace:Launcher.Localization"
+    xmlns:themes="clr-namespace:Launcher.Themes"
     xmlns:viewModels="clr-namespace:Launcher.ViewModels"
     StartupUri="Views/Startup/StartupWindowView.xaml">
     <Application.Resources>
@@ -14,7 +15,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <!--  Default includes  -->
                 <localization:LocalizationResourceDictionary Source="Localization/Resources/en-US.xaml" />
-                <ResourceDictionary Source="Themes/Resources/Dark.xaml" />
+                <themes:ThemeResourceDictionary Source="Themes/Resources/Dark.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
