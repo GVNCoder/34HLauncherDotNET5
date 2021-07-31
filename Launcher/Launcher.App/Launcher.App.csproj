@@ -39,4 +39,8 @@
     <ProjectReference Include="..\Launcher.Resources\Launcher.Resources.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="ViewModels\MainWindowView\" />
+  </ItemGroup>
+
 </Project>
