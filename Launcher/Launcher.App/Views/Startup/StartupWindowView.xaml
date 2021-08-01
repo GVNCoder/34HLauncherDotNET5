@@ -49,12 +49,20 @@
                     Text="{DynamicResource startupView_CheckingForUpdatesTitleLabel}"
                     Visibility="{Binding IsCheckForUpdatesLabelVisible, Converter={StaticResource bool2VisibilityConverter}}" />
                 <ProgressBar
+                    Width="{DynamicResource UpdateDownloadProgressBarWidth}"
+                    Height="{DynamicResource UpdateDownloadProgressBarHeight}"
                     VerticalAlignment="Top"
                     d:IsHidden="True"
                     Style="{DynamicResource UpdateDownloadProgressBarStyle}"
                     Visibility="{Binding IsProgressBarVisible, Converter={StaticResource bool2VisibilityConverter}}"
                     Value="{Binding UpdateDownloadPercentProgress}">
-                    <ProgressBar.OpacityMask>
+                    <ProgressBar.Clip>
+                        <RectangleGeometry
+                            RadiusX="3"
+                            RadiusY="3"
+                            Rect="{DynamicResource UpdateDownloadProgressBarClipRect}" />
+                    </ProgressBar.Clip>
+                    <!--<ProgressBar.OpacityMask>
                         <VisualBrush>
                             <VisualBrush.Visual>
                                 <Rectangle
@@ -65,7 +73,7 @@
                                     RadiusY="3" />
                             </VisualBrush.Visual>
                         </VisualBrush>
-                    </ProgressBar.OpacityMask>
+                    </ProgressBar.OpacityMask>-->
                 </ProgressBar>
             </Grid>
         </Border>
