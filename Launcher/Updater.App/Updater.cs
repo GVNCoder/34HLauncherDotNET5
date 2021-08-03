@@ -21,7 +21,7 @@ namespace Updater.App
 
         #endregion
 
-        private UpdaterRunArguments _runArguments;
+        private readonly UpdaterRunArguments _runArguments;
         private string[] _deleteFiles;
 
         #region Ctor
