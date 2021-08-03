@@ -1,4 +1,7 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:system="clr-namespace:System;assembly=System.Runtime">
 
     <!--#region Palette-->
 
@@ -12,11 +15,18 @@
 
     <!--#endregion Palette-->
 
+    <system:Double x:Key="UpdateDownloadProgressBarWidth">160</system:Double>
+    <system:Double x:Key="UpdateDownloadProgressBarHeight">10</system:Double>
+    <Rect
+        x:Key="UpdateDownloadProgressBarClipRect"
+        Width="{StaticResource UpdateDownloadProgressBarWidth}"
+        Height="{StaticResource UpdateDownloadProgressBarHeight}"
+        X="0"
+        Y="0" />
+
     <Style x:Key="UpdateDownloadProgressBarStyle" TargetType="{x:Type ProgressBar}">
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="OverridesDefaultStyle" Value="True" />
-        <Setter Property="Width" Value="160" />
-        <Setter Property="Height" Value="10" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ProgressBar}">
