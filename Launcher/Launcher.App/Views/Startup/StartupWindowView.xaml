@@ -47,14 +47,14 @@
                     FontWeight="Light"
                     Foreground="{DynamicResource CheckForUpdatesLabelForeground}"
                     Text="{DynamicResource startupView_CheckingForUpdatesTitleLabel}"
-                    Visibility="{Binding IsCheckForUpdatesLabelVisible, Converter={StaticResource bool2VisibilityConverter}}" />
+                    Visibility="{Binding IsCheckForUpdatesLabelVisible, Converter={StaticResource Bool2VisibilityConverter}}" />
                 <ProgressBar
                     Width="{DynamicResource UpdateDownloadProgressBarWidth}"
                     Height="{DynamicResource UpdateDownloadProgressBarHeight}"
                     VerticalAlignment="Top"
                     d:IsHidden="True"
                     Style="{DynamicResource UpdateDownloadProgressBarStyle}"
-                    Visibility="{Binding IsProgressBarVisible, Converter={StaticResource bool2VisibilityConverter}}"
+                    Visibility="{Binding IsProgressBarVisible, Converter={StaticResource Bool2VisibilityConverter}}"
                     Value="{Binding UpdateDownloadPercentProgress}">
                     <ProgressBar.Clip>
                         <RectangleGeometry
