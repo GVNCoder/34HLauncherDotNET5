@@ -22,13 +22,16 @@ namespace Updater.App
         #endregion
 
         private readonly UpdaterRunArguments _runArguments;
-        private string[] _deleteFiles;
+        private readonly string[] _deleteFiles;
 
         #region Ctor
 
         private Updater(UpdaterRunArguments runArguments)
         {
             _runArguments = runArguments;
+            _deleteFiles = File.ReadAllLines(_runArguments.DeleteListFileName)
+                .Where(s => string.IsNullOrWhiteSpace(s) == false)
+                .ToArray();
         }
 
         #endregion
@@ -42,8 +45,6 @@ namespace Updater.App
             // create an application instance
             var updater = new Updater(runArguments);
             var errorMessage = string.Empty;
-
-            updater.Initialize();
 
             // step 1 Close process and wait it
             updater.CloseAndWaitTargetProcess();
@@ -63,13 +64,6 @@ namespace Updater.App
 
             // step 5 Run process back
             updater.FinalizeUpdater(errorMessage);
-        }
-
-        private void Initialize()
-        {
-            _deleteFiles = File.ReadAllLines(_runArguments.DeleteListFileName)
-                .Where(s => string.IsNullOrWhiteSpace(s) == false)
-                .ToArray();
         }
 
         private void CloseAndWaitTargetProcess()
