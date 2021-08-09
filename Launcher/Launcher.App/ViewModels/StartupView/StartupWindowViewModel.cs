@@ -117,6 +117,9 @@ namespace Launcher.App.ViewModels
                 var postUpdateDescription = JsonConvert.DeserializeObject<PostUpdateDescription>(argument);
 
                 _updateInstaller.CleanupFiles(postUpdateDescription.UpdaterFileName, postUpdateDescription.UpdateDirPath);
+
+                // add to log updater error message
+                _logger.Error($"Updater return error {postUpdateDescription.ErrorMessage}");
             }
 
             // begin check for updates
