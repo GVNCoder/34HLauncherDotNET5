@@ -15,6 +15,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <!--  Default includes  -->
                 <localization:LocalizationResourceDictionary Source="Localization/Resources/en-US.xaml" />
+                <ResourceDictionary Source="Themes/Resources/Shared.xaml" />
                 <themes:ThemeResourceDictionary Source="Themes/Resources/Dark.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
