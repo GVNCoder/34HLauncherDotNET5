@@ -15,8 +15,6 @@
 
     <!--#endregion Palette-->
 
-    <system:Double x:Key="UpdateDownloadProgressBarWidth">160</system:Double>
-    <system:Double x:Key="UpdateDownloadProgressBarHeight">10</system:Double>
     <Rect
         x:Key="UpdateDownloadProgressBarClipRect"
         Width="{StaticResource UpdateDownloadProgressBarWidth}"
@@ -36,7 +34,7 @@
                             x:Name="PART_Indicator"
                             HorizontalAlignment="Left"
                             Background="{TemplateBinding Foreground}"
-                            CornerRadius="3" />
+                            CornerRadius="{StaticResource CornerRadius}" />
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroup x:Name="CommonStates">
                                 <VisualState x:Name="Determinate" />

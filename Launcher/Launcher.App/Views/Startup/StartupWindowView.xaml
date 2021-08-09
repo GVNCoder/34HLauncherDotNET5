@@ -58,8 +58,8 @@
                     Value="{Binding UpdateDownloadPercentProgress}">
                     <ProgressBar.Clip>
                         <RectangleGeometry
-                            RadiusX="3"
-                            RadiusY="3"
+                            RadiusX="{StaticResource CornerRadiusX}"
+                            RadiusY="{StaticResource CornerRadiusY}"
                             Rect="{DynamicResource UpdateDownloadProgressBarClipRect}" />
                     </ProgressBar.Clip>
                     <!--<ProgressBar.OpacityMask>
