@@ -119,7 +119,10 @@ namespace Launcher.App.ViewModels
                 _updateInstaller.CleanupFiles(postUpdateDescription.UpdaterFileName, postUpdateDescription.UpdateDirPath);
 
                 // add to log updater error message
-                _logger.Error($"Updater return error {postUpdateDescription.ErrorMessage}");
+                if (string.IsNullOrEmpty(postUpdateDescription.ErrorMessage) == false)
+                {
+                    _logger.Error($"Updater return error {postUpdateDescription.ErrorMessage}");
+                }
             }
 
             // begin check for updates
