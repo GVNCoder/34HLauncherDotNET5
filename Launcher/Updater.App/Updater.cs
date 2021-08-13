@@ -21,16 +21,31 @@ namespace Updater.App
 
         #endregion
 
-        private readonly UpdaterRunArguments _runArguments;
         private readonly string[] _deleteFiles;
+
+        private readonly string _targetProcessName;
+        private readonly string _targetProcessBackPath;
+        private readonly string _sourceDirectoryPath;
+        private readonly string _destinationDirectoryPath;
+        private readonly string _currentWorkingDirectoryPath;
+        private readonly string _currentExecutablePath;
 
         #region Ctor
 
         private Updater(UpdaterRunArguments runArguments)
         {
-            _runArguments = runArguments;
-            _deleteFiles = File.ReadAllLines(_runArguments.DeleteListFileName)
+            var currentAppDomain = AppDomain.CurrentDomain;
+
+            // populate internal state
+            _targetProcessName           = Path.GetFileNameWithoutExtension(runArguments.ProcessBackPath);
+            _sourceDirectoryPath         = runArguments.UpdateFilesDirPath;
+            _destinationDirectoryPath    = Path.GetDirectoryName(runArguments.ProcessBackPath);
+            _currentWorkingDirectoryPath = currentAppDomain.BaseDirectory;
+            _currentExecutablePath       = Path.Combine(_currentWorkingDirectoryPath, currentAppDomain.FriendlyName);
+            _targetProcessBackPath       = runArguments.ProcessBackPath;
+            _deleteFiles                 = File.ReadAllLines(runArguments.DeleteListFileName)
                 .Where(s => string.IsNullOrWhiteSpace(s) == false)
+                .Select(relativePath => Path.Combine(_destinationDirectoryPath, relativePath))
                 .ToArray();
         }
 
@@ -68,8 +83,7 @@ namespace Updater.App
 
         private void CloseAndWaitTargetProcess()
         {
-            var processName = Path.GetFileNameWithoutExtension(_runArguments.ProcessBackPath);
-            var process = Process.GetProcessesByName(processName)
+            var process = Process.GetProcessesByName(_targetProcessName)
                 .FirstOrDefault();
 
             if (process != null)
@@ -120,33 +134,27 @@ namespace Updater.App
 
         private void MoveFiles()
         {
-            var sourceDirectory = _runArguments.UpdateFilesDirPath;
-            var destinationDirectory = Path.GetDirectoryName(_runArguments.ProcessBackPath);
             var sourceDirectoryFiles =
-                Directory.EnumerateFiles(sourceDirectory, "*.*", SearchOption.TopDirectoryOnly);
+                Directory.EnumerateFiles(_sourceDirectoryPath, "*.*", SearchOption.TopDirectoryOnly);
 
             foreach (var sourceDirectoryFile in sourceDirectoryFiles)
             {
-                Directory.Move(sourceDirectoryFile, destinationDirectory);
+                Directory.Move(sourceDirectoryFile, _destinationDirectoryPath);
             }
         }
 
         private void FinalizeUpdater(string errorMessage)
         {
-            var currentAppDomain = AppDomain.CurrentDomain;
-            var currentWorkingDirectory = currentAppDomain.BaseDirectory;
-            var currentExecutablePath = Path.Combine(currentWorkingDirectory, currentAppDomain.FriendlyName);
-
             // run process back
-            var workingDirectory = Path.GetDirectoryName(_runArguments.ProcessBackPath);
+            var workingDirectory = _destinationDirectoryPath;
             var arguments = JsonConvert.SerializeObject(new
-                { updaterFileName = currentExecutablePath, updateDirPath = currentWorkingDirectory, errorMessage });
+                { updaterFileName = _currentExecutablePath, updateDirPath = _currentWorkingDirectoryPath, errorMessage });
 
             var process = new Process
             {
                 StartInfo = new ProcessStartInfo
                 {
-                    FileName = _runArguments.ProcessBackPath,
+                    FileName = _targetProcessBackPath,
                     WorkingDirectory = workingDirectory,
                     Arguments = arguments
                 }
