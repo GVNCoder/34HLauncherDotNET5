@@ -1,11 +1,10 @@
-﻿// ReSharper disable SwitchStatementMissingSomeCases
-
+﻿
 using System;
 using System.Windows;
 using System.Windows.Input;
 
 using Launcher.Commands;
-using Launcher.Core.Utilities;
+using Launcher.Helpers;
 
 using Serilog;
 
@@ -15,7 +14,7 @@ namespace Launcher.ViewModels
     {
         private readonly ILogger _logger;
 
-        private Thickness _defaultBorderThickness;
+        private WindowAdjustWorker _windowAdjustWorker;
         private Window _currentView;
 
         #region Ctor
@@ -40,23 +39,9 @@ namespace Launcher.ViewModels
         {
             _currentView = view;
 
-            // window resize border fix
+            // window resize border fix and more
             // https://stackoverflow.com/questions/2967218/window-out-of-the-screen-when-maximized-using-wpf-shell-integration-library/2975574#2975574
-            _defaultBorderThickness = _currentView.BorderThickness;
-            _currentView.StateChanged += (sender, args) =>
-            {
-                switch (_currentView.WindowState)
-                {
-                    case WindowState.Normal:
-                    case WindowState.Minimized:
-                        _currentView.BorderThickness = _defaultBorderThickness;
-                        break;
-                    case WindowState.Maximized:
-                        var (left, top, right, bottom) = WindowResizeBorderFix.GetWindowResizeBorderThickness();
-                        _currentView.BorderThickness = new Thickness(left, top, right, bottom);
-                        break;
-                }
-            };
+            _windowAdjustWorker = new WindowAdjustWorker(_currentView);
         }
 
         public ICommand ViewUnloadedCommand { get; }

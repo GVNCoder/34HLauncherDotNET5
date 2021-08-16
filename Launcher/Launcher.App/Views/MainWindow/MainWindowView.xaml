@@ -8,10 +8,10 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     x:Name="CurrentWindow"
     Title="34H Launcher"
-    Width="1000"
-    Height="600"
-    MinWidth="1000"
-    MinHeight="600"
+    Width="{StaticResource WindowWidth}"
+    Height="{StaticResource WindowHeight}"
+    MinWidth="{StaticResource WindowWidth}"
+    MinHeight="{StaticResource WindowHeight}"
     DataContext="{Binding Source={StaticResource Locator}, Path=MainWindowViewModel}"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
@@ -28,6 +28,7 @@
     <WindowChrome.WindowChrome>
         <WindowChrome
             CaptionHeight="{StaticResource WindowCaptionHeight}"
+            CornerRadius="0"
             GlassFrameThickness="-1"
             NonClientFrameEdges="None"
             ResizeBorderThickness="5"
