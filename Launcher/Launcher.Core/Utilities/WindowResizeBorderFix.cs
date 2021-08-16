@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 
 namespace Launcher.Core.Utilities
 {
-    public static class WindowFix
+    public static class WindowResizeBorderFix
     {
         #region Constants
 

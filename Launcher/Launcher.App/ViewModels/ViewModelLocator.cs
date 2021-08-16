@@ -24,6 +24,12 @@ namespace Launcher.ViewModels
         public StartupWindowViewModel StartupWindowViewModel
             => _container.GetRequiredService<StartupWindowViewModel>();
 
+        public MainWindowViewModel MainWindowViewModel
+            => _container.GetRequiredService<MainWindowViewModel>();
+
+        public WindowNonClientViewModel WindowNonClientViewModel
+            => _container.GetRequiredService<WindowNonClientViewModel>();
+
         #endregion
     }
 }

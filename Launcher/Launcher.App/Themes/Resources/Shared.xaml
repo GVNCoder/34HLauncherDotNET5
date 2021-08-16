@@ -16,4 +16,7 @@
 
     <CornerRadius x:Key="CornerRadius">3</CornerRadius>
 
+    <system:Double x:Key="WindowCaptionHeight">20</system:Double>
+    <GridLength x:Key="WindowCaptionHeightGrid">20</GridLength>
+
 </ResourceDictionary>

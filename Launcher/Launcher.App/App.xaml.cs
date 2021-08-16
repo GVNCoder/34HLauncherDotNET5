@@ -11,6 +11,7 @@ using Launcher.Core.Data;
 using Launcher.Core.Services;
 using Launcher.Localization;
 using Launcher.Themes;
+using Launcher.ViewModels;
 using Serilog;
 
 // ReSharper disable MemberCanBePrivate.Global
@@ -46,6 +47,8 @@ namespace Launcher
 
             // register viewModels
             serviceCollection.AddScoped<StartupWindowViewModel>();
+            serviceCollection.AddScoped<MainWindowViewModel>();
+            serviceCollection.AddScoped<WindowNonClientViewModel>();
 
             // create container
             Container = serviceCollection.BuildServiceProvider();
