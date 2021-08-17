@@ -11,6 +11,13 @@
     <system:Double x:Key="UpdateDownloadProgressBarWidth">160</system:Double>
     <system:Double x:Key="UpdateDownloadProgressBarHeight">10</system:Double>
 
+    <Rect
+        x:Key="UpdateDownloadProgressBarClipRect"
+        Width="{StaticResource UpdateDownloadProgressBarWidth}"
+        Height="{StaticResource UpdateDownloadProgressBarHeight}"
+        X="0"
+        Y="0" />
+
     <system:Double x:Key="CornerRadiusX">3</system:Double>
     <system:Double x:Key="CornerRadiusY">3</system:Double>
 

@@ -8,6 +8,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Height="{StaticResource WindowCaptionHeight}"
     d:DesignWidth="{StaticResource WindowWidth}"
+    Background="{DynamicResource WindowNonClientBackgroundBrush}"
     DataContext="{Binding Source={StaticResource Locator}, Path=WindowNonClientViewModel}"
     mc:Ignorable="d">
 
@@ -17,7 +18,7 @@
         </b:EventTrigger>
     </b:Interaction.Triggers>-->
 
-    <Grid Background="Red">
+    <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="*" />
@@ -28,30 +29,45 @@
         <StackPanel
             Grid.Column="0"
             Margin="7,0,0,0"
-            Orientation="Horizontal">
-            <TextBlock VerticalAlignment="Center" Text="34H" />
-            <TextBlock VerticalAlignment="Center" Text="LAUNCHER" />
+            Orientation="Horizontal"
+            WindowChrome.IsHitTestVisibleInChrome="True">
+
+            <b:Interaction.Triggers>
+                <b:EventTrigger EventName="MouseDown">
+                    <b:InvokeCommandAction Command="{Binding SystemWindowShowContextMenuCommand}" PassEventArgsToCommand="True" />
+                </b:EventTrigger>
+            </b:Interaction.Triggers>
+
+            <TextBlock
+                VerticalAlignment="Center"
+                FontFamily="{StaticResource RobotoFont}"
+                FontWeight="Medium"
+                Foreground="{DynamicResource TitleGradientBrush}"
+                Text="34H" />
+            <TextBlock
+                Margin="2,0,0,0"
+                VerticalAlignment="Center"
+                FontFamily="{StaticResource RobotoFont}"
+                Foreground="{DynamicResource TitleBrush}"
+                Text="LAUNCHER" />
         </StackPanel>
 
         <!--  System Buttons  -->
         <StackPanel Grid.Column="2" Orientation="Horizontal">
             <Button
-                Width="20"
-                Height="20"
                 Command="{Binding SystemWindowMinimizeCommand}"
-                Content="mi"
+                Content=""
+                Style="{DynamicResource SystemButtonStyle}"
                 WindowChrome.IsHitTestVisibleInChrome="True" />
             <Button
-                Width="20"
-                Height="20"
                 Command="{Binding SystemWindowMaximizeCommand}"
-                Content="ma"
+                Content=""
+                Style="{DynamicResource SystemButtonStyle}"
                 WindowChrome.IsHitTestVisibleInChrome="True" />
             <Button
-                Width="20"
-                Height="20"
                 Command="{Binding SystemWindowCloseCommand}"
-                Content="x"
+                Content=""
+                Style="{DynamicResource SystemButtonCloseStyle}"
                 WindowChrome.IsHitTestVisibleInChrome="True" />
         </StackPanel>
     </Grid>

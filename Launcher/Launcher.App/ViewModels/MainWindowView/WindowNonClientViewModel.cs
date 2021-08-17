@@ -3,7 +3,7 @@
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
-
+using System.Windows.Media;
 using Launcher.Commands;
 using Launcher.Views;
 
@@ -30,6 +30,7 @@ namespace Launcher.ViewModels
             SystemWindowCloseCommand = new RelayCommand<object>(_SystemWindowCloseExecuteCommand);
             SystemWindowMinimizeCommand = new RelayCommand<object>(_SystemWindowMinimizeExecuteCommand);
             SystemWindowMaximizeCommand = new RelayCommand<object>(_SystemWindowMaximizeExecuteCommand);
+            SystemWindowShowContextMenuCommand = new RelayCommand<MouseButtonEventArgs>(_SystemWindowShowContextMenuExecuteCommand);
         }
 
         #endregion
@@ -64,6 +65,17 @@ namespace Launcher.ViewModels
                 SystemCommands.MaximizeWindow(_windowRef);
                 _isWindowCanBeRestored = true;
             }
+        }
+
+        public ICommand SystemWindowShowContextMenuCommand { get; }
+
+        private void _SystemWindowShowContextMenuExecuteCommand(MouseButtonEventArgs args)
+        {
+            var visualSource = (Visual) args.Source;
+            var clickRelativePosition = args.GetPosition((IInputElement) visualSource);
+            var clickAbsolutePosition = visualSource.PointToScreen(clickRelativePosition);
+
+            SystemCommands.ShowSystemMenu(_windowRef, clickAbsolutePosition);
         }
 
         #endregion

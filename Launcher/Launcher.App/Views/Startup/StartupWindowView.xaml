@@ -49,8 +49,8 @@
                     Text="{DynamicResource startupView_CheckingForUpdatesTitleLabel}"
                     Visibility="{Binding IsCheckForUpdatesLabelVisible, Converter={StaticResource Bool2VisibilityConverter}}" />
                 <ProgressBar
-                    Width="{DynamicResource UpdateDownloadProgressBarWidth}"
-                    Height="{DynamicResource UpdateDownloadProgressBarHeight}"
+                    Width="{StaticResource UpdateDownloadProgressBarWidth}"
+                    Height="{StaticResource UpdateDownloadProgressBarHeight}"
                     VerticalAlignment="Top"
                     d:IsHidden="True"
                     Style="{DynamicResource UpdateDownloadProgressBarStyle}"
@@ -60,7 +60,7 @@
                         <RectangleGeometry
                             RadiusX="{StaticResource CornerRadiusX}"
                             RadiusY="{StaticResource CornerRadiusY}"
-                            Rect="{DynamicResource UpdateDownloadProgressBarClipRect}" />
+                            Rect="{StaticResource UpdateDownloadProgressBarClipRect}" />
                     </ProgressBar.Clip>
                     <!--<ProgressBar.OpacityMask>
                         <VisualBrush>
