@@ -33,8 +33,8 @@
 
     <Style x:Key="NavigationButtonStyleBase" TargetType="{x:Type Button}">
         <Setter Property="FontFamily" Value="{StaticResource IconsFont}" />
-        <Setter Property="Width" Value="{StaticResource NavigationButtonWidth}" />
-        <Setter Property="Height" Value="{StaticResource NavigationButtonHeight}" />
+        <Setter Property="Width" Value="{StaticResource NavigationPanelItemWidth}" />
+        <Setter Property="Height" Value="{StaticResource NavigationPanelItemHeight}" />
         <Setter Property="Background">
             <Setter.Value>
                 <SolidColorBrush Color="{StaticResource NavigationButtonBackgroundColor}" />

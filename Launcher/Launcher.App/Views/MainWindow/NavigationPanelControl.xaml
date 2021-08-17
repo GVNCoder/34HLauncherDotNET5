@@ -56,9 +56,11 @@
                 Foreground="{DynamicResource UserNameForegroundBrush}"
                 Text="ZLO player name" />
             <Rectangle
-                Width="30"
-                Height="30"
-                Fill="Black" />
+                Width="{StaticResource NavigationPanelItemWidth}"
+                Height="{StaticResource NavigationPanelItemHeight}"
+                Fill="Black"
+                RadiusX="{StaticResource NavigationPanelItemCornerRadiusX}"
+                RadiusY="{StaticResource NavigationPanelItemCornerRadiusY}" />
             <Button
                 Margin="10,0,0,0"
                 Content=""

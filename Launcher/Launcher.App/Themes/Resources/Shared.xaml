@@ -30,7 +30,11 @@
     <system:Double x:Key="WindowWidth">1000</system:Double>
 
     <system:Double x:Key="NavigationPanelHeight">45</system:Double>
-    <system:Double x:Key="NavigationButtonHeight">30</system:Double>
-    <system:Double x:Key="NavigationButtonWidth">30</system:Double>
+    <system:Double x:Key="NavigationPanelItemHeight">30</system:Double>
+    <system:Double x:Key="NavigationPanelItemWidth">30</system:Double>
+
+    <system:Double x:Key="NavigationPanelItemCornerRadiusX">10</system:Double>
+    <system:Double x:Key="NavigationPanelItemCornerRadiusY">10</system:Double>
+    <CornerRadius x:Key="NavigationPanelItemCornerRadius">10</CornerRadius>
 
 </ResourceDictionary>
