@@ -60,6 +60,7 @@
                 Style="{DynamicResource SystemButtonStyle}"
                 WindowChrome.IsHitTestVisibleInChrome="True" />
             <Button
+                Padding="0,0,0,1"
                 Command="{Binding SystemWindowMaximizeCommand}"
                 Content=""
                 Style="{DynamicResource SystemButtonStyle}"

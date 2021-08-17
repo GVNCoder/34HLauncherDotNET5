@@ -43,12 +43,14 @@
                         Background="{TemplateBinding Background}">
                         <TextBlock
                             x:Name="PART_ContentPresenter"
+                            Padding="{TemplateBinding Padding}"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
                             FontFamily="{StaticResource IconsFont}"
                             FontSize="{TemplateBinding FontSize}"
                             Foreground="{TemplateBinding Foreground}"
-                            Text="{TemplateBinding Content}" />
+                            Text="{TemplateBinding Content}"
+                            TextOptions.TextRenderingMode="Aliased" />
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
