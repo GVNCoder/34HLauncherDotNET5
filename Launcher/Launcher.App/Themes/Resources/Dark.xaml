@@ -5,6 +5,9 @@
 
     <!--#region Palette-->
 
+    <SolidColorBrush x:Key="UserNameForegroundBrush" Color="#c6c6c6" />
+
+    <Color x:Key="NavigationButtonBackgroundColor">#313131</Color>
     <SolidColorBrush x:Key="SystemButtonForegroundBrush" Color="White" />
 
     <LinearGradientBrush x:Key="TitleGradientBrush" StartPoint="0 0" EndPoint="1 1">
@@ -14,6 +17,7 @@
 
     <SolidColorBrush x:Key="TitleBrush" Color="#C4C4C4" />
     <SolidColorBrush x:Key="WindowNonClientBackgroundBrush" Color="#1e1e1e" />
+    <SolidColorBrush x:Key="NavigationPanelBackgroundBrush" Color="#212121" />
 
     <LinearGradientBrush x:Key="StartupLogoBrush" StartPoint="0 0" EndPoint="1 1">
         <GradientStop Offset="0" Color="#6F81CC" />
@@ -26,6 +30,354 @@
     <!--#endregion Palette-->
 
     <!--#region Styles-->
+
+    <Style x:Key="NavigationButtonStyleBase" TargetType="{x:Type Button}">
+        <Setter Property="FontFamily" Value="{StaticResource IconsFont}" />
+        <Setter Property="Width" Value="{StaticResource NavigationButtonWidth}" />
+        <Setter Property="Height" Value="{StaticResource NavigationButtonHeight}" />
+        <Setter Property="Background">
+            <Setter.Value>
+                <SolidColorBrush Color="{StaticResource NavigationButtonBackgroundColor}" />
+            </Setter.Value>
+        </Setter>
+        <Setter Property="FontSize" Value="18" />
+        <Setter Property="Foreground">
+            <Setter.Value>
+                <SolidColorBrush Color="#9F9F9F" />
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border
+                        x:Name="PART_Border"
+                        Background="{TemplateBinding Background}"
+                        CornerRadius="10">
+                        <TextBlock
+                            x:Name="PART_IconGlyph"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            FontFamily="{TemplateBinding FontFamily}"
+                            FontSize="{TemplateBinding FontSize}"
+                            FontWeight="{TemplateBinding FontWeight}"
+                            Foreground="{TemplateBinding Foreground}"
+                            Text="{TemplateBinding Content}"
+                            TextOptions.TextRenderingMode="Aliased" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Cursor" Value="Hand" />
+                            <Setter Property="Foreground" Value="White" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style
+        x:Key="NavigationButtonStyle0"
+        BasedOn="{StaticResource NavigationButtonStyleBase}"
+        TargetType="{x:Type Button}">
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Trigger.EnterActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <ColorAnimation
+                                Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)"
+                                To="#20B2AA"
+                                Duration="0:0:0.2">
+                                <ColorAnimation.EasingFunction>
+                                    <CubicEase EasingMode="EaseOut" />
+                                </ColorAnimation.EasingFunction>
+                            </ColorAnimation>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </Trigger.EnterActions>
+                <Trigger.ExitActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <ColorAnimation
+                                Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)"
+                                To="{StaticResource NavigationButtonBackgroundColor}"
+                                Duration="0:0:0.3">
+                                <ColorAnimation.EasingFunction>
+                                    <CubicEase EasingMode="EaseIn" />
+                                </ColorAnimation.EasingFunction>
+                            </ColorAnimation>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </Trigger.ExitActions>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style
+        x:Key="NavigationButtonStyle1"
+        BasedOn="{StaticResource NavigationButtonStyleBase}"
+        TargetType="{x:Type Button}">
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Trigger.EnterActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <ColorAnimation
+                                Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)"
+                                To="#9457EB"
+                                Duration="0:0:0.2">
+                                <ColorAnimation.EasingFunction>
+                                    <CubicEase EasingMode="EaseOut" />
+                                </ColorAnimation.EasingFunction>
+                            </ColorAnimation>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </Trigger.EnterActions>
+                <Trigger.ExitActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <ColorAnimation
+                                Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)"
+                                To="{StaticResource NavigationButtonBackgroundColor}"
+                                Duration="0:0:0.3">
+                                <ColorAnimation.EasingFunction>
+                                    <CubicEase EasingMode="EaseIn" />
+                                </ColorAnimation.EasingFunction>
+                            </ColorAnimation>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </Trigger.ExitActions>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style
+        x:Key="NavigationButtonStyle2"
+        BasedOn="{StaticResource NavigationButtonStyleBase}"
+        TargetType="{x:Type Button}">
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Trigger.EnterActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <ColorAnimation
+                                Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)"
+                                To="#CC397B"
+                                Duration="0:0:0.2">
+                                <ColorAnimation.EasingFunction>
+                                    <CubicEase EasingMode="EaseOut" />
+                                </ColorAnimation.EasingFunction>
+                            </ColorAnimation>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </Trigger.EnterActions>
+                <Trigger.ExitActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <ColorAnimation
+                                Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)"
+                                To="{StaticResource NavigationButtonBackgroundColor}"
+                                Duration="0:0:0.3">
+                                <ColorAnimation.EasingFunction>
+                                    <CubicEase EasingMode="EaseIn" />
+                                </ColorAnimation.EasingFunction>
+                            </ColorAnimation>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </Trigger.ExitActions>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style
+        x:Key="NavigationButtonStyle3"
+        BasedOn="{StaticResource NavigationButtonStyleBase}"
+        TargetType="{x:Type Button}">
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Trigger.EnterActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <ColorAnimation
+                                Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)"
+                                To="#EB4C42"
+                                Duration="0:0:0.2">
+                                <ColorAnimation.EasingFunction>
+                                    <CubicEase EasingMode="EaseOut" />
+                                </ColorAnimation.EasingFunction>
+                            </ColorAnimation>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </Trigger.EnterActions>
+                <Trigger.ExitActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <ColorAnimation
+                                Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)"
+                                To="{StaticResource NavigationButtonBackgroundColor}"
+                                Duration="0:0:0.3">
+                                <ColorAnimation.EasingFunction>
+                                    <CubicEase EasingMode="EaseIn" />
+                                </ColorAnimation.EasingFunction>
+                            </ColorAnimation>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </Trigger.ExitActions>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style
+        x:Key="NavigationButtonStyle4"
+        BasedOn="{StaticResource NavigationButtonStyleBase}"
+        TargetType="{x:Type Button}">
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Trigger.EnterActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <ColorAnimation
+                                Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)"
+                                To="#F07427"
+                                Duration="0:0:0.2">
+                                <ColorAnimation.EasingFunction>
+                                    <CubicEase EasingMode="EaseOut" />
+                                </ColorAnimation.EasingFunction>
+                            </ColorAnimation>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </Trigger.EnterActions>
+                <Trigger.ExitActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <ColorAnimation
+                                Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)"
+                                To="{StaticResource NavigationButtonBackgroundColor}"
+                                Duration="0:0:0.3">
+                                <ColorAnimation.EasingFunction>
+                                    <CubicEase EasingMode="EaseIn" />
+                                </ColorAnimation.EasingFunction>
+                            </ColorAnimation>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </Trigger.ExitActions>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style
+        x:Key="NavigationButtonStyle5"
+        BasedOn="{StaticResource NavigationButtonStyleBase}"
+        TargetType="{x:Type Button}">
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Trigger.EnterActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <ColorAnimation
+                                Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)"
+                                To="#F4CA16"
+                                Duration="0:0:0.2">
+                                <ColorAnimation.EasingFunction>
+                                    <CubicEase EasingMode="EaseOut" />
+                                </ColorAnimation.EasingFunction>
+                            </ColorAnimation>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </Trigger.EnterActions>
+                <Trigger.ExitActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <ColorAnimation
+                                Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)"
+                                To="{StaticResource NavigationButtonBackgroundColor}"
+                                Duration="0:0:0.3">
+                                <ColorAnimation.EasingFunction>
+                                    <CubicEase EasingMode="EaseIn" />
+                                </ColorAnimation.EasingFunction>
+                            </ColorAnimation>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </Trigger.ExitActions>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style
+        x:Key="NavigationButtonStyle6"
+        BasedOn="{StaticResource NavigationButtonStyleBase}"
+        TargetType="{x:Type Button}">
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Trigger.EnterActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <ColorAnimation
+                                Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)"
+                                To="#50C878"
+                                Duration="0:0:0.2">
+                                <ColorAnimation.EasingFunction>
+                                    <CubicEase EasingMode="EaseOut" />
+                                </ColorAnimation.EasingFunction>
+                            </ColorAnimation>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </Trigger.EnterActions>
+                <Trigger.ExitActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <ColorAnimation
+                                Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)"
+                                To="{StaticResource NavigationButtonBackgroundColor}"
+                                Duration="0:0:0.3">
+                                <ColorAnimation.EasingFunction>
+                                    <CubicEase EasingMode="EaseIn" />
+                                </ColorAnimation.EasingFunction>
+                            </ColorAnimation>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </Trigger.ExitActions>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style
+        x:Key="NavigationButtonStyle7"
+        BasedOn="{StaticResource NavigationButtonStyleBase}"
+        TargetType="{x:Type Button}">
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Trigger.EnterActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <ColorAnimation
+                                Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)"
+                                To="#318CE7"
+                                Duration="0:0:0.2">
+                                <ColorAnimation.EasingFunction>
+                                    <CubicEase EasingMode="EaseOut" />
+                                </ColorAnimation.EasingFunction>
+                            </ColorAnimation>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </Trigger.EnterActions>
+                <Trigger.ExitActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <ColorAnimation
+                                Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)"
+                                To="{StaticResource NavigationButtonBackgroundColor}"
+                                Duration="0:0:0.3">
+                                <ColorAnimation.EasingFunction>
+                                    <CubicEase EasingMode="EaseIn" />
+                                </ColorAnimation.EasingFunction>
+                            </ColorAnimation>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </Trigger.ExitActions>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
 
     <Style x:Key="SystemButtonStyle" TargetType="{x:Type Button}">
         <Setter Property="OverridesDefaultStyle" Value="True" />

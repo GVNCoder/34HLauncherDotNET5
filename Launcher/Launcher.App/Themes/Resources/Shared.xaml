@@ -29,4 +29,8 @@
     <system:Double x:Key="WindowHeight">600</system:Double>
     <system:Double x:Key="WindowWidth">1000</system:Double>
 
+    <system:Double x:Key="NavigationPanelHeight">45</system:Double>
+    <system:Double x:Key="NavigationButtonHeight">30</system:Double>
+    <system:Double x:Key="NavigationButtonWidth">30</system:Double>
+
 </ResourceDictionary>

@@ -44,8 +44,8 @@
         </Grid.RowDefinitions>
 
         <views:WindowNonClientControl Grid.Row="0" />
+        <views:NavigationPanelControl Grid.Row="1" />
 
-        <Rectangle Grid.Row="1" Fill="Green" />
         <Rectangle Grid.Row="2" Fill="Blue" />
     </Grid>
 </Window>
