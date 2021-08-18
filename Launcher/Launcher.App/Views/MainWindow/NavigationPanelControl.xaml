@@ -58,21 +58,9 @@
             Grid.Column="6"
             Margin="15,0"
             Orientation="Horizontal">
-            <TextBlock
-                Margin="0,0,10,0"
-                VerticalAlignment="Center"
-                Foreground="{DynamicResource UserNameForegroundBrush}"
-                Text="ZLO player name" />
-            <Rectangle
-                Width="{StaticResource NavigationPanelItemWidth}"
-                Height="{StaticResource NavigationPanelItemHeight}"
-                Fill="Black"
-                RadiusX="{StaticResource NavigationPanelItemCornerRadiusX}"
-                RadiusY="{StaticResource NavigationPanelItemCornerRadiusY}" />
-            <Button
-                Margin="10,0,0,0"
-                Content=""
-                Style="{DynamicResource NavigationButtonStyle6}" />
+
+            <local:AuthorizedUserControl Margin="0,0,10,0" />
+            <Button Content="" Style="{DynamicResource NavigationButtonStyle6}" />
         </StackPanel>
     </Grid>
 </UserControl>
