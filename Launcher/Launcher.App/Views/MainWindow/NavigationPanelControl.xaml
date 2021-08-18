@@ -5,18 +5,26 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:Launcher.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    d:DesignHeight="{StaticResource NavigationPanelHeight}"
+    Height="{StaticResource NavigationPanelHeight}"
     d:DesignWidth="{StaticResource WindowWidth}"
     Background="{DynamicResource NavigationPanelBackgroundBrush}"
     mc:Ignorable="d">
 
-    <Grid ShowGridLines="True">
+    <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="{StaticResource NavigationPanelSeparatorWidth}" />
             <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="{StaticResource NavigationPanelSeparatorWidth}" />
             <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="{StaticResource NavigationPanelSeparatorWidth}" />
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
+
+        <!--  Separators  -->
+        <Rectangle Grid.Column="1" Fill="{DynamicResource NavigationPanelSeparatorFillBrush}" />
+        <Rectangle Grid.Column="3" Fill="{DynamicResource NavigationPanelSeparatorFillBrush}" />
+        <Rectangle Grid.Column="5" Fill="{DynamicResource NavigationPanelSeparatorFillBrush}" />
 
         <!--  Navigation Panel  -->
         <UniformGrid
@@ -31,7 +39,7 @@
 
         <!--  Panel  -->
         <UniformGrid
-            Grid.Column="1"
+            Grid.Column="2"
             Width="160"
             Margin="10,0"
             Columns="4">
@@ -47,7 +55,7 @@
 
         <!--  User Panel  -->
         <StackPanel
-            Grid.Column="3"
+            Grid.Column="6"
             Margin="15,0"
             Orientation="Horizontal">
             <TextBlock
