@@ -19,13 +19,36 @@
             Grid.Column="0"
             VerticalAlignment="Center"
             Foreground="{DynamicResource UserNameForegroundBrush}"
-            Text="ZLO player name" />
+            Text="ZLO User Name" />
+
+
         <Rectangle
             Grid.Column="2"
             Width="{StaticResource NavigationPanelItemWidth}"
             Height="{StaticResource NavigationPanelItemHeight}"
-            Fill="Black"
+            Fill="{DynamicResource NavigationButtonBackgroundBrush}"
             RadiusX="{StaticResource NavigationPanelItemCornerRadiusX}"
             RadiusY="{StaticResource NavigationPanelItemCornerRadiusY}" />
+
+        <!--  TODO: Create a separate control to draw icon glyphs  -->
+        <!--<TextBlock
+            Grid.Column="2"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            FontFamily="{StaticResource IconsFont}"
+            FontSize="18"
+            Foreground="{DynamicResource NavigationButtonForegroundBrush}"
+            Text=""
+            TextOptions.TextRenderingMode="Aliased"
+            Visibility="Hidden" />-->
+
+        <Glyphs
+            Grid.Column="2"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Fill="{DynamicResource NavigationButtonForegroundBrush}"
+            FontRenderingEmSize="18"
+            FontUri="pack://application:,,,/Launcher.Resources;Component/Fonts/ionicons.ttf"
+            UnicodeString="" />
     </Grid>
 </UserControl>

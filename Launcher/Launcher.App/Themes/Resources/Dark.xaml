@@ -10,6 +10,9 @@
 
     <Color x:Key="NavigationButtonBackgroundColor">#313131</Color>
     <Color x:Key="NavigationButtonForegroundColor">#9F9F9F</Color>
+    <SolidColorBrush x:Key="NavigationButtonBackgroundBrush" Color="{StaticResource NavigationButtonBackgroundColor}" />
+    <SolidColorBrush x:Key="NavigationButtonForegroundBrush" Color="{StaticResource NavigationButtonForegroundColor}" />
+
     <SolidColorBrush x:Key="SystemButtonForegroundBrush" Color="White" />
 
     <LinearGradientBrush x:Key="TitleGradientBrush" StartPoint="0 0" EndPoint="1 1">
