@@ -45,7 +45,7 @@
 
         <views:WindowNonClientControl Grid.Row="0" />
         <views:NavigationPanelControl Grid.Row="1" />
-
-        <Rectangle Grid.Row="2" Fill="Blue" />
+        <views:WindowContentControl Grid.Row="2" />
+        <views:NotificationsControl Grid.Row="2" VerticalAlignment="Bottom" />
     </Grid>
 </Window>

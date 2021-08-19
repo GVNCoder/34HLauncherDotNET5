@@ -11,6 +11,7 @@
         <ResourceDictionary>
             <viewModels:ViewModelLocator x:Key="Locator" />
             <BooleanToVisibilityConverter x:Key="Bool2VisibilityConverter" />
+            <ImageSource x:Key="BackgroundImage">pack://application:,,,/Launcher.Resources;Component/Images/defaultBackgroundImage.jpg</ImageSource>
 
             <ResourceDictionary.MergedDictionaries>
                 <!--  Default includes  -->
