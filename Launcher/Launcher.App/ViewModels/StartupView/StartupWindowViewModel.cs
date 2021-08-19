@@ -219,10 +219,12 @@ namespace Launcher.App.ViewModels
         {
             _currentView.Hide();
 
-            var mainWindow = new MainWindowView();
+            var mainWindow = new MainWindowView { ShowActivated = true };
+
+            // set as main window
+            Application.Current.MainWindow = mainWindow;
 
             mainWindow.Show();
-            mainWindow.ShowActivated = true;
 
             _currentView.Close();
         }
