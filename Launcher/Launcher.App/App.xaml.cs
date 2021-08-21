@@ -49,6 +49,7 @@ namespace Launcher
             serviceCollection.AddScoped<StartupWindowViewModel>();
             serviceCollection.AddScoped<MainWindowViewModel>();
             serviceCollection.AddScoped<WindowNonClientViewModel>();
+            serviceCollection.AddScoped<WindowContentViewModel>();
 
             // create container
             Container = serviceCollection.BuildServiceProvider();

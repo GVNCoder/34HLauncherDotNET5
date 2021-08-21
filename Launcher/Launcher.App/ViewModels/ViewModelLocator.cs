@@ -30,6 +30,9 @@ namespace Launcher.ViewModels
         public WindowNonClientViewModel WindowNonClientViewModel
             => _container.GetRequiredService<WindowNonClientViewModel>();
 
+        public WindowContentViewModel WindowContentViewModel
+            => _container.GetRequiredService<WindowContentViewModel>();
+
         #endregion
     }
 }
