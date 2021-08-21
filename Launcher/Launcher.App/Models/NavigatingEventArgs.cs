@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Launcher.Core.Models
+namespace Launcher.Models
 {
     public class NavigatingEventArgs : EventArgs
     {

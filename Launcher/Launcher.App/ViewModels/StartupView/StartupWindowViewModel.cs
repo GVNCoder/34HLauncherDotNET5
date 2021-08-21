@@ -11,10 +11,10 @@ using System.Windows;
 using System.Windows.Input;
 
 using Launcher.Commands;
-using Launcher.Core.Extensions;
-using Launcher.Core.Models;
-using Launcher.Core.Services;
-using Launcher.Core.Utilities;
+using Launcher.Extensions;
+using Launcher.Models;
+using Launcher.Services;
+using Launcher.Utilities;
 using Launcher.Views;
 
 using Newtonsoft.Json;

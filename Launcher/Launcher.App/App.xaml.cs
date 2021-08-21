@@ -7,8 +7,8 @@ using System.Windows.Threading;
 using Microsoft.Extensions.DependencyInjection;
 
 using Launcher.App.ViewModels;
-using Launcher.Core.Data;
-using Launcher.Core.Services;
+using Launcher.Data;
+using Launcher.Services;
 using Launcher.Localization;
 using Launcher.Themes;
 using Launcher.ViewModels;

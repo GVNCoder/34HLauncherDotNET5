@@ -1,5 +1,5 @@
-﻿using Launcher.Core.Models;
-using Launcher.Core.Services;
+﻿using Launcher.Models;
+using Launcher.Services;
 
 using System;
 using System.Net;
@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 using Newtonsoft.Json;
 
-namespace Launcher.Core.Data
+namespace Launcher.Data
 {
     public class UpdateChecker : IUpdateChecker
     {

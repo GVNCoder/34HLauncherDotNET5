@@ -2,10 +2,10 @@
 using System.ComponentModel;
 using System.Net;
 
-using Launcher.Core.Models;
-using Launcher.Core.Services;
+using Launcher.Models;
+using Launcher.Services;
 
-namespace Launcher.Core.Data
+namespace Launcher.Data
 {
     public class UpdateDownloader : IUpdateDownloader
     {

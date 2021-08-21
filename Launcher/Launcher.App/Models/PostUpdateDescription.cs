@@ -1,4 +1,4 @@
-﻿namespace Launcher.Core.Models
+﻿namespace Launcher.Models
 {
     public class PostUpdateDescription
     {

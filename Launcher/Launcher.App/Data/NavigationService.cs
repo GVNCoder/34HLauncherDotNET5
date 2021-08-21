@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows;
-using Launcher.Core.Models;
-using Launcher.Core.Services;
+
+using Launcher.Models;
+using Launcher.Services;
 
 /*
  * We have two history stacks
@@ -14,7 +15,7 @@ using Launcher.Core.Services;
  * Go forward to next Page  -> pop history content from forward history stack (push) to back history stack -> do no do anything if forward stack is empty
  */
 
-namespace Launcher.Core.Data
+namespace Launcher.Data
 {
     public class NavigationService : INavigationService
     {

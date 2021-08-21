@@ -2,7 +2,7 @@
 using System.IO;
 using System.Security;
 
-namespace Launcher.Core.Utilities
+namespace Launcher.Utilities
 {
     public static class FileSystemUtility
     {

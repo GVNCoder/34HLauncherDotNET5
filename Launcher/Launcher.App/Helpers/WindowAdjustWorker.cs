@@ -7,8 +7,6 @@ using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Shell;
 
-using Launcher.Core.Utilities;
-
 namespace Launcher.Helpers
 {
     public class WindowAdjustWorker

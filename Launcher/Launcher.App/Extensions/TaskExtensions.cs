@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace Launcher.Core.Extensions
+namespace Launcher.Extensions
 {
     public static class TaskExtensions
     {

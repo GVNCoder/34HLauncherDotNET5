@@ -6,12 +6,12 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Threading;
 
-using Launcher.Core.Models;
-using Launcher.Core.Services;
+using Launcher.Models;
+using Launcher.Services;
 
 using Newtonsoft.Json;
 
-namespace Launcher.Core.Data
+namespace Launcher.Data
 {
     public class UpdateInstaller : IUpdateInstaller
     {

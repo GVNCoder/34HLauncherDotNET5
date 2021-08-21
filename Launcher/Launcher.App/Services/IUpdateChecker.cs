@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-using Launcher.Core.Models;
+using Launcher.Models;
 
-namespace Launcher.Core.Services
+namespace Launcher.Services
 {
     public interface IUpdateChecker
     {
