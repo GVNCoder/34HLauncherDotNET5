@@ -4,9 +4,9 @@ namespace Launcher.Models
 {
     public class NavigatingEventArgs : EventArgs
     {
-        public string TargetSource { get; }
+        public Uri TargetSource { get; }
 
-        public NavigatingEventArgs(string targetSource)
+        public NavigatingEventArgs(Uri targetSource)
         {
             TargetSource = targetSource;
         }

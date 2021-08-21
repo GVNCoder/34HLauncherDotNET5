@@ -9,7 +9,7 @@ namespace Launcher.Services
         event EventHandler<NavigatedEventArgs> Navigated; // occurs when navigation is done
 
         object CurrentContent { get; }
-        string CurrentContentSource { get; }
+        Uri CurrentContentSource { get; }
         bool CanGoBack { get; }
         bool CanGoForward { get; }
 
