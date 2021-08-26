@@ -16,6 +16,6 @@
         <Rectangle Fill="{DynamicResource WindowBackgroundBrush}" OpacityMask="{DynamicResource WindowBackgroundGradientOpacityMaskBrush}" />
 
         <!--  Content Host  -->
-        <ContentPresenter Content="{Binding CurrentContent}" />
+        <Frame Content="{Binding CurrentContent}" />
     </Grid>
 </UserControl>

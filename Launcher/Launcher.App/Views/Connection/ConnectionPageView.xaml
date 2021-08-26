@@ -1,0 +1,23 @@
+﻿<Page
+    x:Class="Launcher.Views.ConnectionPageView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:attachedProperties="clr-namespace:Launcher.AttachedProperties"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:Launcher.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    attachedProperties:ApplicationNavigation.SaveInHistory="False"
+    d:DesignHeight="500"
+    d:DesignWidth="1000"
+    Background="Red"
+    mc:Ignorable="d">
+
+    <Grid>
+        <TextBlock
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            FontSize="24"
+            Foreground="White"
+            Text="FIRST PAGE! NAVIGATION WORKS!!!" />
+    </Grid>
+</Page>
