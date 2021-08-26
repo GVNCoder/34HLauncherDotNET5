@@ -15,6 +15,7 @@
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
 
+        <!--  TODO: User name binding need to set TargetNullValue as Localized string  -->
         <TextBlock
             Grid.Column="0"
             VerticalAlignment="Center"
