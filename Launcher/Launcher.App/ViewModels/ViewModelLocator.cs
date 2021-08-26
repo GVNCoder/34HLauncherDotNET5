@@ -33,6 +33,9 @@ namespace Launcher.ViewModels
         public WindowContentViewModel WindowContentViewModel
             => _container.GetRequiredService<WindowContentViewModel>();
 
+        public NavigationPanelViewModel NavigationPanelViewModel
+            => _container.GetRequiredService<NavigationPanelViewModel>();
+
         #endregion
     }
 }

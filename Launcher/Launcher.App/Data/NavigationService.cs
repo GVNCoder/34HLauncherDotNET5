@@ -36,7 +36,7 @@ namespace Launcher.Data
         private struct _NavigationItem
         {
             public Uri Source;
-            public object ContentRef;
+            public Page ContentRef;
         }
 
         #endregion
@@ -62,7 +62,7 @@ namespace Launcher.Data
         public event EventHandler<NavigatingEventArgs> Navigating;
         public event EventHandler<NavigatedEventArgs> Navigated;
 
-        public object CurrentContent => _currentContent?.ContentRef;
+        public Page CurrentContent => _currentContent?.ContentRef;
         public Uri CurrentContentSource => _currentContent?.Source;
         public bool CanGoBack => _backHistory.Any();
         public bool CanGoForward => _forwardHistory.Any();
@@ -83,7 +83,7 @@ namespace Launcher.Data
             _OnNavigating(sourceUri);
 
             // load a new content
-            var content = Application.LoadComponent(sourceUri);
+            var content = (Page) Application.LoadComponent(sourceUri);
             var navigationItem = new _NavigationItem { Source = sourceUri, ContentRef = content };
 
             _currentContent = navigationItem;
@@ -94,7 +94,7 @@ namespace Launcher.Data
                 _ = _backHistory.Pop();
             }
 
-            if (ApplicationNavigation.GetHistoryEnabled((Page) content))
+            if (ApplicationNavigation.GetHistoryEnabled(content))
             {
                 _backHistory.Push(navigationItem);
             }

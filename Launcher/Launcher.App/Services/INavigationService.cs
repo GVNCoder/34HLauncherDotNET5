@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Windows.Controls;
+
 using Launcher.Models;
 
 namespace Launcher.Services
@@ -8,7 +10,7 @@ namespace Launcher.Services
         event EventHandler<NavigatingEventArgs> Navigating; // occurs when navigation initiated
         event EventHandler<NavigatedEventArgs> Navigated; // occurs when navigation is done
 
-        object CurrentContent { get; }
+        Page CurrentContent { get; }
         Uri CurrentContentSource { get; }
         bool CanGoBack { get; }
         bool CanGoForward { get; }

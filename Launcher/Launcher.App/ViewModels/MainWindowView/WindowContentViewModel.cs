@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Windows.Controls;
 
 using Launcher.Models;
 using Launcher.Services;
@@ -24,13 +25,13 @@ namespace Launcher.ViewModels
 
         #region Dependency properties
 
-        public object CurrentContent
+        public Page CurrentContent
         {
-            get => (object) GetValue(CurrentContentProperty);
+            get => (Page) GetValue(CurrentContentProperty);
             set => SetValue(CurrentContentProperty, value);
         }
         public static readonly DependencyProperty CurrentContentProperty =
-            DependencyProperty.Register("CurrentContent", typeof(object), typeof(WindowContentViewModel), new PropertyMetadata(null));
+            DependencyProperty.Register("CurrentContent", typeof(Page), typeof(WindowContentViewModel), new PropertyMetadata(null));
 
         #endregion
 
