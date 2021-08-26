@@ -44,6 +44,7 @@ namespace Launcher
             serviceCollection.AddTransient<IUpdateDownloader, UpdateDownloader>();
             serviceCollection.AddTransient<IUpdateInstaller, UpdateInstaller>();
             serviceCollection.AddSingleton<ILogger>(Log.Logger);
+            serviceCollection.AddSingleton<INavigationService, NavigationService>();
 
             // register viewModels
             serviceCollection.AddScoped<StartupWindowViewModel>();
