@@ -5,7 +5,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 
+using Launcher.AttachedProperties;
 using Launcher.Models;
 using Launcher.Services;
 
@@ -92,7 +94,10 @@ namespace Launcher.Data
                 _ = _backHistory.Pop();
             }
 
-            _backHistory.Push(navigationItem);
+            if (ApplicationNavigation.GetHistoryEnabled((Page) content))
+            {
+                _backHistory.Push(navigationItem);
+            }
 
             // fire event
             _onNavigated(navigationItem);

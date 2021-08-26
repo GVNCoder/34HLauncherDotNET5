@@ -6,7 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:Launcher.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    attachedProperties:ApplicationNavigation.SaveInHistory="False"
+    attachedProperties:ApplicationNavigation.HistoryEnabled="False"
     d:DesignHeight="500"
     d:DesignWidth="1000"
     Background="Red"

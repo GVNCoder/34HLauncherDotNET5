@@ -5,17 +5,17 @@ namespace Launcher.AttachedProperties
 {
     public class ApplicationNavigation
     {
-        public static readonly DependencyProperty SaveInHistoryProperty = DependencyProperty.RegisterAttached(
-            "SaveInHistory", typeof(bool), typeof(ApplicationNavigation), new PropertyMetadata(false));
+        public static readonly DependencyProperty HistoryEnabledProperty = DependencyProperty.RegisterAttached(
+            "HistoryEnabled", typeof(bool), typeof(ApplicationNavigation), new PropertyMetadata(true));
 
-        public static void SetSaveInHistory(Page element, bool value)
+        public static void SetHistoryEnabled(Page element, bool value)
         {
-            element.SetValue(SaveInHistoryProperty, value);
+            element.SetValue(HistoryEnabledProperty, value);
         }
 
-        public static bool GetSaveInHistory(Page element)
+        public static bool GetHistoryEnabled(Page element)
         {
-            return (bool) element.GetValue(SaveInHistoryProperty);
+            return (bool) element.GetValue(HistoryEnabledProperty);
         }
     }
 }
