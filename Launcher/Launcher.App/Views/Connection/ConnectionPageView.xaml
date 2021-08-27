@@ -9,15 +9,90 @@
     attachedProperties:ApplicationNavigation.HistoryEnabled="False"
     d:DesignHeight="500"
     d:DesignWidth="1000"
-    Background="Red"
+    Background="{DynamicResource ConnectionPageBackgroundBrush}"
     mc:Ignorable="d">
 
     <Grid>
-        <TextBlock
-            HorizontalAlignment="Center"
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <StackPanel
+            Grid.Row="0"
             VerticalAlignment="Center"
-            FontSize="24"
-            Foreground="White"
-            Text="FIRST PAGE! NAVIGATION WORKS!!!" />
+            Orientation="Vertical">
+            <TextBlock
+                HorizontalAlignment="Center"
+                FontSize="26"
+                FontWeight="Bold"
+                Foreground="{DynamicResource MainTitleForegroundBrush}"
+                Text="{DynamicResource connectionPageView_MainTitleLabel}" />
+            <TextBlock
+                Margin="0,7,0,0"
+                HorizontalAlignment="Center"
+                FontSize="18"
+                Foreground="{DynamicResource SloganForegroundBrush}"
+                Text="{DynamicResource connectionPageView_SloganLabel}"
+                TextAlignment="Center" />
+
+            <StackPanel
+                Height="35"
+                Margin="0,30,0,0"
+                HorizontalAlignment="Center"
+                Orientation="Horizontal">
+                <Button
+                    Margin="0,0,15,0"
+                    Content="{DynamicResource connectionPageView_RunZClientButtonLabel}"
+                    FontSize="{StaticResource LoginButtonsFontSize}"
+                    Style="{DynamicResource LoginButtonStyleDefault}" />
+                <Button
+                    Width="200"
+                    HorizontalContentAlignment="Stretch"
+                    VerticalContentAlignment="Center"
+                    IsEnabled="True"
+                    Style="{DynamicResource LoginButtonStylePrimary}">
+                    <Button.Content>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock
+                                Grid.Column="0"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                FontSize="{StaticResource LoginButtonsFontSize}"
+                                FontWeight="Medium"
+                                Text="{DynamicResource connectionPageView_ConnectButtonLabel}" />
+                            <Glyphs
+                                Grid.Column="1"
+                                HorizontalAlignment="Right"
+                                Fill="{DynamicResource LoginButtonForegroundBrushPrimary}"
+                                FontRenderingEmSize="16"
+                                FontUri="pack://application:,,,/Launcher.Resources;Component/Fonts/ionicons.ttf"
+                                UnicodeString="" />
+                        </Grid>
+                    </Button.Content>
+                </Button>
+            </StackPanel>
+
+            <TextBlock
+                Margin="0,35"
+                FontWeight="Light"
+                Foreground="{DynamicResource CantConnectForegroundBrush}"
+                Text="{DynamicResource connectionPageView_CantConnectLabel}"
+                TextAlignment="Center"
+                Visibility="Visible" />
+        </StackPanel>
+
+        <TextBlock
+            Grid.Row="1"
+            Margin="0,0,0,10"
+            HorizontalAlignment="Center">
+            <Hyperlink NavigateUri="https://zloemu.net/status">Emu status?</Hyperlink>
+            <Hyperlink NavigateUri="#">Contact developer</Hyperlink>
+        </TextBlock>
     </Grid>
 </Page>

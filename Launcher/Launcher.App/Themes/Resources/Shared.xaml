@@ -45,4 +45,8 @@
     <EasingMode x:Key="NavigationButtonMouseOverHoverAnimationEasingFunction">EaseIn</EasingMode>
     <EasingMode x:Key="NavigationButtonMouseOverAnimationEasingFunction">EaseIn</EasingMode>
 
+    <system:Double x:Key="LoginButtonsFontSize">14</system:Double>
+
+    <EasingMode x:Key="LoginButtonMouseOverHoverAnimationEasingFunction">EaseInOut</EasingMode>
+
 </ResourceDictionary>

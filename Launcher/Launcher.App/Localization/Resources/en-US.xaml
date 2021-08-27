@@ -6,4 +6,13 @@
     <!--  Startup window view  -->
     <system:String x:Key="startupView_CheckingForUpdatesTitleLabel">Checking for updates</system:String>
 
+    <!--  Connection page view  -->
+    <system:String x:Key="connectionPageView_MainTitleLabel">Connect to Your ZClient</system:String>
+    <system:String x:Key="connectionPageView_SloganLabel" xml:space="preserve">Welcome to 34H! Play your favorite game completely free of charge
+with the ZLOEmu project</system:String>
+    <system:String x:Key="connectionPageView_CantConnectLabel" xml:space="preserve">Oops... Can't connect for one of the following reasons.
+ZClient not runned or ZClient not connected or some software blocks local connection</system:String>
+    <system:String x:Key="connectionPageView_RunZClientButtonLabel">Run ZClient</system:String>
+    <system:String x:Key="connectionPageView_ConnectButtonLabel">Connect</system:String>
+
 </ResourceDictionary>
