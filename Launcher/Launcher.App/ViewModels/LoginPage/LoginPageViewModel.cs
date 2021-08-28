@@ -1,9 +1,9 @@
-﻿using System.Diagnostics;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Input;
 
 using Launcher.Commands;
 using Launcher.Utilities;
+
 using Zlo4NET.Api.Service;
 
 namespace Launcher.ViewModels
