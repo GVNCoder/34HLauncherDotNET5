@@ -56,6 +56,19 @@
 
     <!--#region Styles-->
 
+    <Style x:Key="LoginPageHyperlinkStyle" TargetType="{x:Type Hyperlink}">
+        <Style.Triggers>
+            <!--<Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Foreground" Value="Red" />
+            </Trigger>-->
+            <Trigger Property="IsEnabled" Value="True">
+                <Setter Property="Cursor" Value="Hand" />
+            </Trigger>
+        </Style.Triggers>
+        <Setter Property="Foreground" Value="#bfbfbf" />
+        <Setter Property="TextDecorations" Value="Underline" />
+    </Style>
+
     <Style x:Key="LoginButtonStyleDefault" TargetType="{x:Type Button}">
         <Setter Property="FontFamily" Value="{StaticResource RobotoFont}" />
         <Setter Property="Padding" Value="20,3" />
