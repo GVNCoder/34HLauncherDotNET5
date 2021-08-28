@@ -15,4 +15,7 @@ ZClient not runned or ZClient not connected or some software blocks local connec
     <system:String x:Key="connectionPageView_RunZClientButtonLabel">Run ZClient</system:String>
     <system:String x:Key="connectionPageView_ConnectButtonLabel">Connect</system:String>
 
+    <!--  Common  -->
+    <system:String x:Key="ChooseClientDialogTitle">Choose ZClient executable file</system:String>
+
 </ResourceDictionary>

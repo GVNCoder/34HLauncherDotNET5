@@ -57,7 +57,7 @@ namespace Launcher.Localization
             _currentLocalizationKey = localizationKey;
         }
 
-        public static string GetTranslation(string key) => (string) _currentLocalizationDictionary[key];
+        public static string GetTranslationByKey(string key) => (string) _currentLocalizationDictionary[key];
 
         #endregion
 

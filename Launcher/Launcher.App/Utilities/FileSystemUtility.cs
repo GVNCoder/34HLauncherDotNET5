@@ -21,5 +21,8 @@ namespace Launcher.Utilities
 
             return tempDirectory;
         }
+
+        public static bool FileExists(string path)
+            => File.Exists(path);
     }
 }

@@ -97,6 +97,8 @@ namespace Launcher
 
         private static ILogger BuildApplicationLogger()
         {
+            // TODO: set stacktrace depth
+
             var currentAssemblyName = Assembly.GetExecutingAssembly()
                 .GetName();
             var outputFile = Path.Combine("log", "launcher.log");

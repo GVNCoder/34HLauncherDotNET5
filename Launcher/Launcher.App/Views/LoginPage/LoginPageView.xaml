@@ -63,7 +63,7 @@
                     HorizontalContentAlignment="Stretch"
                     VerticalContentAlignment="Center"
                     Command="{Binding ConnectCommand}"
-                    IsEnabled="True"
+                    IsEnabled="{Binding IsConnectButtonAvailable}"
                     Style="{DynamicResource LoginButtonStylePrimary}">
                     <Button.Content>
                         <Grid>
