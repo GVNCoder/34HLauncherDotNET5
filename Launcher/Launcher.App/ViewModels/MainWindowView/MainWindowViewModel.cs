@@ -51,7 +51,7 @@ namespace Launcher.ViewModels
             _windowAdjustWorker = new WindowAdjustWorker(_currentView);
 
             // default navigation
-            _navigationService.Navigate("Views\\Connection\\ConnectionPageView.xaml");
+            _navigationService.Navigate("Views\\LoginPage\\LoginPageView.xaml");
 
             // track connection changes
             _connection.ConnectionChanged += (sender, args) =>
@@ -62,7 +62,7 @@ namespace Launcher.ViewModels
                 }
                 else
                 {
-                    _navigationService.Navigate("Views\\Connection\\ConnectionPageView.xaml");
+                    _navigationService.Navigate("Views\\LoginPage\\LoginPageView.xaml");
                 }
             };
         }

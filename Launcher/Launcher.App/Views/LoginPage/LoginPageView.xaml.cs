@@ -5,9 +5,9 @@ namespace Launcher.Views
     /// <summary>
     /// Interaction logic for ConnectionPageView.xaml
     /// </summary>
-    public partial class ConnectionPageView : Page
+    public partial class LoginPageView : Page
     {
-        public ConnectionPageView()
+        public LoginPageView()
         {
             InitializeComponent();
         }
