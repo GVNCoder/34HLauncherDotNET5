@@ -119,7 +119,7 @@ namespace Launcher
                     rollOnFileSizeLimit: true,
                     retainedFileCountLimit: null,
                     buffered: true,
-                    outputTemplate: "[{Timestamp:yyyy-MM-dd HH:mm:ss.fff}] [{appVersion}] [{Level:u3}] {Message:lj}{NewLine}{customException}{NewLine}")
+                    outputTemplate: "[{Timestamp:yyyy-MM-dd HH:mm:ss.fff}] [{appVersion}] [{Level:u3}] {Message:lj}{NewLine}{customException}")
                 .CreateLogger();
         }
 
