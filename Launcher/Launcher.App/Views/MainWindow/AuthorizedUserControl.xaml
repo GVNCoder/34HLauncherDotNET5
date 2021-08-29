@@ -6,6 +6,7 @@
     xmlns:local="clr-namespace:Launcher.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Height="{StaticResource NavigationPanelHeight}"
+    DataContext="{Binding Source={StaticResource Locator}, Path=AuthorizedUserViewModel}"
     mc:Ignorable="d">
 
     <Grid>
@@ -15,13 +16,11 @@
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
 
-        <!--  TODO: User name binding need to set TargetNullValue as Localized string  -->
         <TextBlock
             Grid.Column="0"
             VerticalAlignment="Center"
             Foreground="{DynamicResource UserNameForegroundBrush}"
-            Text="ZLO User Name" />
-
+            Text="{Binding UserName, TargetNullValue=ZLO User Name}" />
 
         <Rectangle
             Grid.Column="2"
@@ -30,18 +29,6 @@
             Fill="{DynamicResource NavigationButtonBackgroundBrush}"
             RadiusX="{StaticResource NavigationPanelItemCornerRadiusX}"
             RadiusY="{StaticResource NavigationPanelItemCornerRadiusY}" />
-
-        <!--  TODO: Create a separate control to draw icon glyphs  -->
-        <!--<TextBlock
-            Grid.Column="2"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Center"
-            FontFamily="{StaticResource IconsFont}"
-            FontSize="18"
-            Foreground="{DynamicResource NavigationButtonForegroundBrush}"
-            Text=""
-            TextOptions.TextRenderingMode="Aliased"
-            Visibility="Hidden" />-->
 
         <Glyphs
             Grid.Column="2"

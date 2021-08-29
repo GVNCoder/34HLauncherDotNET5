@@ -7,10 +7,12 @@ using System.Windows.Input;
 
 using Launcher.Commands;
 using Launcher.Localization;
+using Launcher.Services;
 using Launcher.Utilities;
 
 using Serilog;
 using Zlo4NET.Api.Service;
+using Zlo4NET.Api.Shared;
 
 namespace Launcher.ViewModels
 {
@@ -22,15 +24,18 @@ namespace Launcher.ViewModels
 
         #endregion
 
+        private readonly INavigationService _navigationService;
         private readonly IZConnection _connection;
         private readonly ILogger _logger;
 
         #region Ctor
 
         public LoginPageViewModel(
-            IZConnection connection
+            INavigationService navigationService
+            , IZConnection connection
             , ILogger logger)
         {
+            _navigationService = navigationService;
             _connection = connection;
             _logger = logger;
 
@@ -71,12 +76,36 @@ namespace Launcher.ViewModels
 
         private void _ViewLoadedExecuteCommand(object view)
         {
+            IsConnectButtonAvailable = true;
+
+            // track connection changes
+            _connection.ConnectionChanged += _OnConnectionChanged;
+        }
+
+        private void _OnConnectionChanged(object sender, ZConnectionChangedEventArgs e)
+        {
+            if (e.IsConnected)
+            {
+                // TODO: navigate to home ;)
+                MessageBox.Show($"Connected successfully as {e.AuthorizedUser.UserName}");
+            }
+            else
+            {
+                // show error tip and activate button back
+                Dispatcher.Invoke(() =>
+                {
+                    IsConnectButtonAvailable = true;
+                    IsConnectionFailed = true;
+                });
+            }
         }
 
         public ICommand ViewUnloadedCommand { get; }
 
         private void _ViewUnloadedExecuteCommand(object parameter)
         {
+            // untrack connection changes
+            _connection.ConnectionChanged -= _OnConnectionChanged;
         }
 
         public ICommand RunClientCommand { get; }
@@ -137,6 +166,11 @@ namespace Launcher.ViewModels
 
         private void _ConnectExecuteCommand(object parameter)
         {
+            // deactivate button first
+            IsConnectButtonAvailable = false;
+
+            // try to connect and wait for response to activate button back
+            _connection.Connect();
         }
 
         public ICommand OpenEmuStatusCommand { get; }

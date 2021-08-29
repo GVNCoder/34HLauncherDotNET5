@@ -201,7 +201,37 @@
                             </Trigger.ExitActions>
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="False">
-                            <Setter TargetName="PART_Border" Property="Background" Value="#2F2F2F" />
+                            <!--<Setter TargetName="PART_Border" Property="Background" Value="#2F2F2F" />-->
+                            <Trigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation
+                                            Storyboard.TargetName="PART_Border"
+                                            Storyboard.TargetProperty="(Border.Background).(LinearGradientBrush.GradientStops)[1].(Color)"
+                                            To="#2DAAB2"
+                                            Duration="0:0:.5">
+                                            <ColorAnimation.EasingFunction>
+                                                <CubicEase EasingMode="{StaticResource LoginButtonMouseOverHoverAnimationEasingFunction}" />
+                                            </ColorAnimation.EasingFunction>
+                                        </ColorAnimation>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation
+                                            Storyboard.TargetName="PART_Border"
+                                            Storyboard.TargetProperty="(Border.Background).(LinearGradientBrush.GradientStops)[1].(Color)"
+                                            To="{StaticResource LoginButtonBackgroundGradientStop1Primary}"
+                                            Duration="0:0:1">
+                                            <ColorAnimation.EasingFunction>
+                                                <CubicEase EasingMode="{StaticResource LoginButtonMouseOverHoverAnimationEasingFunction}" />
+                                            </ColorAnimation.EasingFunction>
+                                        </ColorAnimation>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.ExitActions>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

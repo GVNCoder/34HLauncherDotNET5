@@ -39,6 +39,9 @@ namespace Launcher.ViewModels
         public LoginPageViewModel LoginPageViewModel
             => _container.GetRequiredService<LoginPageViewModel>();
 
+        public AuthorizedUserViewModel AuthorizedUserViewModel
+            => _container.GetRequiredService<AuthorizedUserViewModel>();
+
         #endregion
     }
 }

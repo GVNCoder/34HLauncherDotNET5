@@ -44,7 +44,7 @@ namespace Launcher.ViewModels
         private void _ViewLoadedExecuteCommand(object parameter)
         {
             // track connection changes
-            _connection.ConnectionChanged += (sender, args) => IsPanelEnabled = args.IsConnected;
+            _connection.ConnectionChanged += (sender, args) => Dispatcher.Invoke(() => IsPanelEnabled = args.IsConnected);
         }
 
         public ICommand ViewUnloadedCommand { get; }

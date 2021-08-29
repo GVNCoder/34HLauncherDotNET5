@@ -64,6 +64,7 @@ namespace Launcher
             serviceCollection.AddScoped<WindowContentViewModel>();
             serviceCollection.AddScoped<NavigationPanelViewModel>();
             serviceCollection.AddScoped<LoginPageViewModel>(); // TODO: Scoped ?
+            serviceCollection.AddScoped<AuthorizedUserViewModel>();
 
             // create container
             Container = serviceCollection.BuildServiceProvider();
