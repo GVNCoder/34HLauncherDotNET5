@@ -9,6 +9,7 @@ using System.Windows;
 
 using Launcher.App.ViewModels;
 using Launcher.Data;
+using Launcher.Helpers;
 using Launcher.Services;
 using Launcher.Localization;
 using Launcher.Themes;
@@ -111,12 +112,13 @@ namespace Launcher
                 .MinimumLevel.Warning()
 #endif
                 .Enrich.WithProperty("appVersion", $"{currentAssemblyName.Version}")
+                .Enrich.With(new SerilogCustomExceptionEnricher(5))
                 .WriteTo.File(outputFile,
                     fileSizeLimitBytes: 1048576, // 1 MBytes
                     rollOnFileSizeLimit: true,
                     retainedFileCountLimit: null,
                     buffered: true,
-                    outputTemplate: "[{Timestamp:yyyy-MM-dd HH:mm:ss.fff}] [{appVersion}] [{Level:u3}] {Message:lj}{NewLine}{Exception}")
+                    outputTemplate: "[{Timestamp:yyyy-MM-dd HH:mm:ss.fff}] [{appVersion}] [{Level:u3}] {Message:lj}{NewLine}{customException}{NewLine}")
                 .CreateLogger();
         }
 
