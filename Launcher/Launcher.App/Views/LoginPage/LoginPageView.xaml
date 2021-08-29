@@ -60,35 +60,12 @@
                     Style="{DynamicResource LoginButtonStyleDefault}" />
                 <Button
                     Width="200"
-                    HorizontalContentAlignment="Stretch"
-                    VerticalContentAlignment="Center"
                     Command="{Binding ConnectCommand}"
+                    Content="{DynamicResource connectionPageView_ConnectButtonLabel}"
+                    FontWeight="Medium"
                     IsEnabled="{Binding IsConnectButtonAvailable}"
-                    Style="{DynamicResource LoginButtonStylePrimary}">
-                    <Button.Content>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
-
-                            <TextBlock
-                                Grid.Column="0"
-                                HorizontalAlignment="Left"
-                                VerticalAlignment="Center"
-                                FontSize="{StaticResource LoginButtonsFontSize}"
-                                FontWeight="Medium"
-                                Text="{DynamicResource connectionPageView_ConnectButtonLabel}" />
-                            <Glyphs
-                                Grid.Column="1"
-                                HorizontalAlignment="Right"
-                                Fill="{DynamicResource LoginButtonForegroundBrushPrimary}"
-                                FontRenderingEmSize="16"
-                                FontUri="pack://application:,,,/Launcher.Resources;Component/Fonts/ionicons.ttf"
-                                UnicodeString="" />
-                        </Grid>
-                    </Button.Content>
-                </Button>
+                    Style="{DynamicResource LoginButtonStylePrimary}"
+                    Tag="" />
             </StackPanel>
 
             <TextBlock

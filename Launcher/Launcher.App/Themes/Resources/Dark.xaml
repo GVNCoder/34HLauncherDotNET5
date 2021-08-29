@@ -5,11 +5,8 @@
 
     <!--#region Palette-->
 
-    <Color x:Key="LoginButtonBackgroundGradientStop1Primary">#0F9F62</Color>
-
     <Color x:Key="LoginButtonBackgroundColorDefault">#343434</Color>
-    <Color x:Key="LoginButtonForegroundColorPrimary">#f4f4f4</Color>
-    <SolidColorBrush x:Key="LoginButtonForegroundBrushPrimary" Color="{StaticResource LoginButtonForegroundColorPrimary}" />
+    <Color x:Key="LoginButtonForegroundColorDefault">#bebebe</Color>
 
     <SolidColorBrush x:Key="CantConnectForegroundBrush" Color="#db4f4f" />
     <SolidColorBrush x:Key="SloganForegroundBrush" Color="#717171" />
@@ -79,7 +76,7 @@
         </Setter>
         <Setter Property="Foreground">
             <Setter.Value>
-                <SolidColorBrush Color="#bebebe" />
+                <SolidColorBrush Color="{StaticResource LoginButtonForegroundColorDefault}" />
             </Setter.Value>
         </Setter>
         <Setter Property="Template">
@@ -89,7 +86,7 @@
                         x:Name="PART_Border"
                         Padding="{TemplateBinding Padding}"
                         Background="{TemplateBinding Background}"
-                        CornerRadius="10">
+                        CornerRadius="{StaticResource LoginButtonsCornerRadius}">
                         <ContentPresenter
                             x:Name="PART_ContentPresenter"
                             HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
@@ -108,7 +105,7 @@
                                             To="#424242"
                                             Duration="0:0:0.1">
                                             <ColorAnimation.EasingFunction>
-                                                <CubicEase EasingMode="{StaticResource LoginButtonMouseOverHoverAnimationEasingFunction}" />
+                                                <CubicEase EasingMode="{StaticResource LoginButtonMouseOverHoverAnimationEasingFunctionMode}" />
                                             </ColorAnimation.EasingFunction>
                                         </ColorAnimation>
                                     </Storyboard>
@@ -123,7 +120,7 @@
                                             To="{StaticResource LoginButtonBackgroundColorDefault}"
                                             Duration="0:0:0.15">
                                             <ColorAnimation.EasingFunction>
-                                                <CubicEase EasingMode="{StaticResource LoginButtonMouseOverHoverAnimationEasingFunction}" />
+                                                <CubicEase EasingMode="{StaticResource LoginButtonMouseOverHoverAnimationEasingFunctionMode}" />
                                             </ColorAnimation.EasingFunction>
                                         </ColorAnimation>
                                     </Storyboard>
@@ -143,13 +140,13 @@
             <Setter.Value>
                 <LinearGradientBrush StartPoint="0 0" EndPoint="1 1">
                     <GradientStop Offset="0" Color="#2DAA7C" />
-                    <GradientStop Offset="1" Color="{StaticResource LoginButtonBackgroundGradientStop1Primary}" />
+                    <GradientStop Offset="1" Color="#0F9F62" />
                 </LinearGradientBrush>
             </Setter.Value>
         </Setter>
         <Setter Property="Foreground">
             <Setter.Value>
-                <SolidColorBrush Color="{StaticResource LoginButtonForegroundColorPrimary}" />
+                <SolidColorBrush Color="#f4f4f4" />
             </Setter.Value>
         </Setter>
         <Setter Property="Template">
@@ -159,79 +156,83 @@
                         x:Name="PART_Border"
                         Padding="{TemplateBinding Padding}"
                         Background="{TemplateBinding Background}"
-                        CornerRadius="10">
-                        <ContentPresenter
-                            x:Name="PART_ContentPresenter"
-                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                            Content="{TemplateBinding Content}" />
+                        CornerRadius="{StaticResource LoginButtonsCornerRadius}"
+                        TextBlock.Foreground="{TemplateBinding Foreground}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock
+                                Grid.Column="0"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                FontSize="{StaticResource LoginButtonsFontSize}"
+                                FontWeight="{TemplateBinding FontWeight}"
+                                Text="{TemplateBinding Content}" />
+                            <TextBlock
+                                Grid.Column="1"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Center"
+                                FontFamily="{StaticResource IconsFont}"
+                                FontSize="16"
+                                Text="{TemplateBinding Tag}" />
+
+                            <!--<Glyphs
+                                Grid.Column="1"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Center"
+                                Fill="{TemplateBinding Foreground}"
+                                FontRenderingEmSize="16"
+                                FontUri="pack://application:,,,/Launcher.Resources;Component/Fonts/ionicons.ttf"
+                                UnicodeString="{TemplateBinding Tag}" />-->
+                        </Grid>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualStateGroup.Transitions>
+                                    <VisualTransition
+                                        GeneratedDuration="0:0:.5"
+                                        GeneratedEasingFunction="{StaticResource LoginButtonNormalAnimationEasingFunction}"
+                                        To="Normal" />
+                                    <VisualTransition
+                                        GeneratedDuration="0:0:.3"
+                                        GeneratedEasingFunction="{StaticResource LoginButtonMouseOverAnimationEasingFunction}"
+                                        To="MouseOver" />
+                                    <VisualTransition
+                                        GeneratedDuration="0:0:.2"
+                                        GeneratedEasingFunction="{StaticResource LoginButtonDisabledAnimationEasingFunction}"
+                                        To="Disabled" />
+                                    <VisualTransition GeneratedDuration="0:0:1" To="Pressed" />
+                                </VisualStateGroup.Transitions>
+                                <VisualState x:Name="Normal" />
+                                <VisualState x:Name="MouseOver">
+                                    <Storyboard>
+                                        <ColorAnimationUsingKeyFrames Storyboard.TargetName="PART_Border" Storyboard.TargetProperty="(Border.Background).(LinearGradientBrush.GradientStops)[1].(Color)">
+                                            <EasingColorKeyFrame KeyTime="0" Value="#2DAAB2" />
+                                        </ColorAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Pressed" />
+                                <VisualState x:Name="Disabled">
+                                    <Storyboard>
+                                        <ColorAnimationUsingKeyFrames Storyboard.TargetName="PART_Border" Storyboard.TargetProperty="(Border.Background).(LinearGradientBrush.GradientStops)[1].(Color)">
+                                            <EasingColorKeyFrame KeyTime="0" Value="#2F2F2F" />
+                                        </ColorAnimationUsingKeyFrames>
+                                        <ColorAnimationUsingKeyFrames Storyboard.TargetName="PART_Border" Storyboard.TargetProperty="(Border.Background).(LinearGradientBrush.GradientStops)[0].(Color)">
+                                            <EasingColorKeyFrame KeyTime="0" Value="#2F2F2F" />
+                                        </ColorAnimationUsingKeyFrames>
+                                        <ColorAnimationUsingKeyFrames Storyboard.TargetName="PART_Border" Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)">
+                                            <EasingColorKeyFrame KeyTime="0" Value="{StaticResource LoginButtonForegroundColorDefault}" />
+                                        </ColorAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter Property="Cursor" Value="Hand" />
-                            <Trigger.EnterActions>
-                                <BeginStoryboard>
-                                    <Storyboard>
-                                        <ColorAnimation
-                                            Storyboard.TargetName="PART_Border"
-                                            Storyboard.TargetProperty="(Border.Background).(LinearGradientBrush.GradientStops)[1].(Color)"
-                                            To="#2DAAB2"
-                                            Duration="0:0:.5">
-                                            <ColorAnimation.EasingFunction>
-                                                <CubicEase EasingMode="{StaticResource LoginButtonMouseOverHoverAnimationEasingFunction}" />
-                                            </ColorAnimation.EasingFunction>
-                                        </ColorAnimation>
-                                    </Storyboard>
-                                </BeginStoryboard>
-                            </Trigger.EnterActions>
-                            <Trigger.ExitActions>
-                                <BeginStoryboard>
-                                    <Storyboard>
-                                        <ColorAnimation
-                                            Storyboard.TargetName="PART_Border"
-                                            Storyboard.TargetProperty="(Border.Background).(LinearGradientBrush.GradientStops)[1].(Color)"
-                                            To="{StaticResource LoginButtonBackgroundGradientStop1Primary}"
-                                            Duration="0:0:1">
-                                            <ColorAnimation.EasingFunction>
-                                                <CubicEase EasingMode="{StaticResource LoginButtonMouseOverHoverAnimationEasingFunction}" />
-                                            </ColorAnimation.EasingFunction>
-                                        </ColorAnimation>
-                                    </Storyboard>
-                                </BeginStoryboard>
-                            </Trigger.ExitActions>
-                        </Trigger>
-                        <Trigger Property="IsEnabled" Value="False">
-                            <!--<Setter TargetName="PART_Border" Property="Background" Value="#2F2F2F" />-->
-                            <Trigger.EnterActions>
-                                <BeginStoryboard>
-                                    <Storyboard>
-                                        <ColorAnimation
-                                            Storyboard.TargetName="PART_Border"
-                                            Storyboard.TargetProperty="(Border.Background).(LinearGradientBrush.GradientStops)[1].(Color)"
-                                            To="#2DAAB2"
-                                            Duration="0:0:.5">
-                                            <ColorAnimation.EasingFunction>
-                                                <CubicEase EasingMode="{StaticResource LoginButtonMouseOverHoverAnimationEasingFunction}" />
-                                            </ColorAnimation.EasingFunction>
-                                        </ColorAnimation>
-                                    </Storyboard>
-                                </BeginStoryboard>
-                            </Trigger.EnterActions>
-                            <Trigger.ExitActions>
-                                <BeginStoryboard>
-                                    <Storyboard>
-                                        <ColorAnimation
-                                            Storyboard.TargetName="PART_Border"
-                                            Storyboard.TargetProperty="(Border.Background).(LinearGradientBrush.GradientStops)[1].(Color)"
-                                            To="{StaticResource LoginButtonBackgroundGradientStop1Primary}"
-                                            Duration="0:0:1">
-                                            <ColorAnimation.EasingFunction>
-                                                <CubicEase EasingMode="{StaticResource LoginButtonMouseOverHoverAnimationEasingFunction}" />
-                                            </ColorAnimation.EasingFunction>
-                                        </ColorAnimation>
-                                    </Storyboard>
-                                </BeginStoryboard>
-                            </Trigger.ExitActions>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
