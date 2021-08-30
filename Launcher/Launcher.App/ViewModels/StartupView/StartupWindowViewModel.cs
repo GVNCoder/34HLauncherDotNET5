@@ -26,13 +26,9 @@ namespace Launcher.App.ViewModels
     {
         #region Constants
 
-#if DEBUG
-        private const string LauncherUpdateDescriptionLink = @"https://raw.githubusercontent.com/GVNCoder/34HLauncherDotNET5/master/Launcher/UpdateDescription.json";
-#else
-        private const string LauncherUpdateDescriptionLink = @"";
-#endif
-        private const int DefaultArgsCount = 1;
-        private const int FirstRunArgument = DefaultArgsCount + 1;
+        private const string DevChannelUpdateDescription =
+            @"https://raw.githubusercontent.com/GVNCoder/34HLauncherDotNET5/master/Launcher/UpdateDescription.json";
+        private const string ProdChannelUpdateDescription = "";
 
         #endregion
 
@@ -42,6 +38,7 @@ namespace Launcher.App.ViewModels
         private readonly IUpdateInstaller _updateInstaller;
 
         private UpdateDescription _updateDescription;
+        private string _updateDescriptionLink;
         private Window _currentView;
 
         #region Ctor
@@ -109,12 +106,10 @@ namespace Launcher.App.ViewModels
         {
             _currentView = view;
 
-            // validate run args
-            var args = Environment.GetCommandLineArgs();
-            if (args.Length > DefaultArgsCount)
+            // determine is we runs as post update
+            if (LauncherApp.CommandLineArguments.TryGetValue(CommandLineUtility.PostUpdateDescription, out var portUpdateArgument))
             {
-                var argument = args[FirstRunArgument];
-                var postUpdateDescription = JsonConvert.DeserializeObject<PostUpdateDescription>(argument);
+                var postUpdateDescription = JsonConvert.DeserializeObject<PostUpdateDescription>(portUpdateArgument);
 
                 _updateInstaller.CleanupFiles(postUpdateDescription.UpdaterFileName, postUpdateDescription.UpdateDirPath);
 
@@ -125,8 +120,15 @@ namespace Launcher.App.ViewModels
                 }
             }
 
+            // determine updates channel
+            LauncherApp.CommandLineArguments.TryGetValue(CommandLineUtility.Channel, out var channelArgument);
+
+            _updateDescriptionLink = channelArgument == "dev"
+                ? DevChannelUpdateDescription
+                : ProdChannelUpdateDescription;
+
             // begin check for updates
-            _updateChecker.CheckForUpdatesAsync(LauncherUpdateDescriptionLink)
+            _updateChecker.CheckForUpdatesAsync(_updateDescriptionLink)
                 .Forget();
         }
 

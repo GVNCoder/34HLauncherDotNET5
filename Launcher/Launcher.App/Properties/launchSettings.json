@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Launcher.App": {
+      "commandName": "Project",
+      "commandLineArgs": "--channel=dev"
+    }
+  }
+}

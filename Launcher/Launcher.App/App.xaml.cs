@@ -2,6 +2,7 @@
 // ReSharper disable MemberCanBePrivate.Global
 
 using System;
+using System.Collections.Immutable;
 using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -13,6 +14,7 @@ using Launcher.Helpers;
 using Launcher.Services;
 using Launcher.Localization;
 using Launcher.Themes;
+using Launcher.Utilities;
 using Launcher.ViewModels;
 
 using Microsoft.Extensions.DependencyInjection;
@@ -31,6 +33,8 @@ namespace Launcher
         #region Properties
 
         public static IServiceProvider Container { get; private set; }
+
+        public static IImmutableDictionary<string, string> CommandLineArguments { get; private set; }
 
         #endregion
 
@@ -79,6 +83,9 @@ namespace Launcher
             base.OnStartup(e);
 
             InstallErrorLoggers();
+
+            // init some static properties
+            CommandLineArguments = CommandLineUtility.ParseCommandLineArguments(e.Args);
 
             // init some static managers
             LocalizationManager.Init(Resources);
