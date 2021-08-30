@@ -47,8 +47,6 @@
 
     <system:Double x:Key="LoginButtonsFontSize">14</system:Double>
 
-    <EasingMode x:Key="LoginButtonMouseOverHoverAnimationEasingFunctionMode">EaseInOut</EasingMode>
-
     <CubicEase x:Key="LoginButtonMouseOverAnimationEasingFunction" EasingMode="EaseInOut" />
     <CubicEase x:Key="LoginButtonNormalAnimationEasingFunction" EasingMode="EaseInOut" />
     <CubicEase x:Key="LoginButtonDisabledAnimationEasingFunction" EasingMode="EaseInOut" />

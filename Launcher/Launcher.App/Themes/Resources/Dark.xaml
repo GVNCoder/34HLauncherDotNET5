@@ -92,40 +92,29 @@
                             HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                             VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                             Content="{TemplateBinding Content}" />
+
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualStateGroup.Transitions>
+                                    <VisualTransition GeneratedDuration="0:0:.2" To="Normal" />
+                                    <VisualTransition GeneratedDuration="0:0:.1" To="MouseOver" />
+                                </VisualStateGroup.Transitions>
+                                <VisualState x:Name="Normal" />
+                                <VisualState x:Name="MouseOver">
+                                    <Storyboard>
+                                        <ColorAnimationUsingKeyFrames Storyboard.TargetName="PART_Border" Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)">
+                                            <EasingColorKeyFrame KeyTime="0" Value="#424242" />
+                                        </ColorAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Pressed" />
+                                <VisualState x:Name="Disabled" />
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter Property="Cursor" Value="Hand" />
-                            <Trigger.EnterActions>
-                                <BeginStoryboard>
-                                    <Storyboard>
-                                        <ColorAnimation
-                                            Storyboard.TargetName="PART_Border"
-                                            Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
-                                            To="#424242"
-                                            Duration="0:0:0.1">
-                                            <ColorAnimation.EasingFunction>
-                                                <CubicEase EasingMode="{StaticResource LoginButtonMouseOverHoverAnimationEasingFunctionMode}" />
-                                            </ColorAnimation.EasingFunction>
-                                        </ColorAnimation>
-                                    </Storyboard>
-                                </BeginStoryboard>
-                            </Trigger.EnterActions>
-                            <Trigger.ExitActions>
-                                <BeginStoryboard>
-                                    <Storyboard>
-                                        <ColorAnimation
-                                            Storyboard.TargetName="PART_Border"
-                                            Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
-                                            To="{StaticResource LoginButtonBackgroundColorDefault}"
-                                            Duration="0:0:0.15">
-                                            <ColorAnimation.EasingFunction>
-                                                <CubicEase EasingMode="{StaticResource LoginButtonMouseOverHoverAnimationEasingFunctionMode}" />
-                                            </ColorAnimation.EasingFunction>
-                                        </ColorAnimation>
-                                    </Storyboard>
-                                </BeginStoryboard>
-                            </Trigger.ExitActions>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -178,15 +167,6 @@
                                 FontFamily="{StaticResource IconsFont}"
                                 FontSize="16"
                                 Text="{TemplateBinding Tag}" />
-
-                            <!--<Glyphs
-                                Grid.Column="1"
-                                HorizontalAlignment="Right"
-                                VerticalAlignment="Center"
-                                Fill="{TemplateBinding Foreground}"
-                                FontRenderingEmSize="16"
-                                FontUri="pack://application:,,,/Launcher.Resources;Component/Fonts/ionicons.ttf"
-                                UnicodeString="{TemplateBinding Tag}" />-->
                         </Grid>
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroup x:Name="CommonStates">
