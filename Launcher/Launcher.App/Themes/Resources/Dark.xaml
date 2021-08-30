@@ -5,7 +5,6 @@
 
     <!--#region Palette-->
 
-    <Color x:Key="LoginButtonBackgroundColorDefault">#343434</Color>
     <Color x:Key="LoginButtonForegroundColorDefault">#bebebe</Color>
 
     <SolidColorBrush x:Key="CantConnectForegroundBrush" Color="#db4f4f" />
@@ -71,7 +70,7 @@
         <Setter Property="Padding" Value="20,3" />
         <Setter Property="Background">
             <Setter.Value>
-                <SolidColorBrush Color="{StaticResource LoginButtonBackgroundColorDefault}" />
+                <SolidColorBrush Color="#343434" />
             </Setter.Value>
         </Setter>
         <Setter Property="Foreground">
