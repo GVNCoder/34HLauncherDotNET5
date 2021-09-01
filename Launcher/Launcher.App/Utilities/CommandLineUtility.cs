@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.Immutable;
 using System.Linq;
+
+using Launcher.Models;
 
 namespace Launcher.Utilities
 {
@@ -9,22 +9,39 @@ namespace Launcher.Utilities
     {
         #region Constants
 
-        private const string KeyValueSeparator = "=";
+
 
         #endregion
 
-        // enumeration of possible arguments
-        public const string Channel = "--channel";
-        public const string PostUpdateDescription = "--postUpdateDescription";
+        #region Possible argument keys
 
-        public static IImmutableDictionary<string, string> ParseCommandLineArguments(IEnumerable<string> args)
+        public const string DevChannel = "-dev";
+        public const string PostUpdateDescription = "-postUpdDesc";
+
+        #endregion
+
+        public static CommandLineArguments ParseCommandLineArguments(string[] args, char valueSeparator = '=')
         {
-            var keyValuePairs = args
-                .Select(a => a.Split(KeyValueSeparator, StringSplitOptions.RemoveEmptyEntries))
-                .Where(kv => kv.Length == 2)
-                .ToImmutableDictionary(k => k.First(), v => v.Last());
+            // parse arguments
+            var argumentsKeyValue = args
+                .Select(a => a.Split(valueSeparator, StringSplitOptions.RemoveEmptyEntries))
+                .ToArray();
 
-            return keyValuePairs;
+            // get itself-valued arguments
+            var itselfValuedArguments = argumentsKeyValue
+                .Where(i => i.Length == 1)
+                .Select(a => a.First())
+                .ToList();
+
+            // get key-value pair arguments
+            var keyValuePairArguments = argumentsKeyValue
+                .Where(i => i.Length == 2)
+                .ToDictionary(k => k.First(), v => v.Last());
+
+            // create merged arguments string
+            var commandLine = string.Join(' ', args);
+
+            return new CommandLineArguments(keyValuePairArguments, itselfValuedArguments, commandLine);
         }
     }
 }

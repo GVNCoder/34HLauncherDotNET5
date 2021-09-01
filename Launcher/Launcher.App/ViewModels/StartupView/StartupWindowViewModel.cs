@@ -38,7 +38,6 @@ namespace Launcher.App.ViewModels
         private readonly IUpdateInstaller _updateInstaller;
 
         private UpdateDescription _updateDescription;
-        private string _updateDescriptionLink;
         private Window _currentView;
 
         #region Ctor
@@ -107,9 +106,9 @@ namespace Launcher.App.ViewModels
             _currentView = view;
 
             // determine is we runs as post update
-            if (LauncherApp.CommandLineArguments.TryGetValue(CommandLineUtility.PostUpdateDescription, out var portUpdateArgument))
+            if (LauncherApp.CommandLineArguments.KeyValueArguments.TryGetValue(CommandLineUtility.PostUpdateDescription, out var postUpdateDescriptionValue))
             {
-                var postUpdateDescription = JsonConvert.DeserializeObject<PostUpdateDescription>(portUpdateArgument);
+                var postUpdateDescription = JsonConvert.DeserializeObject<PostUpdateDescription>(postUpdateDescriptionValue);
 
                 _updateInstaller.CleanupFiles(postUpdateDescription.UpdaterFileName, postUpdateDescription.UpdateDirPath);
 
@@ -121,14 +120,12 @@ namespace Launcher.App.ViewModels
             }
 
             // determine updates channel
-            LauncherApp.CommandLineArguments.TryGetValue(CommandLineUtility.Channel, out var channelArgument);
-
-            _updateDescriptionLink = channelArgument == "dev"
+            var updateDescriptionLink = LauncherApp.IsDev
                 ? DevChannelUpdateDescription
                 : ProdChannelUpdateDescription;
 
             // begin check for updates
-            _updateChecker.CheckForUpdatesAsync(_updateDescriptionLink)
+            _updateChecker.CheckForUpdatesAsync(updateDescriptionLink)
                 .Forget();
         }
 
@@ -157,31 +154,32 @@ namespace Launcher.App.ViewModels
 
         private void _OnUpdaterUpdateDownloadCompleted(object sender, DownloadCompletedEventArgs e)
         {
-            if (e.Successful == false)
+            if (e.Successful)
             {
-                _ShowMainWindow();
+                // prepare arguments
+                var downloadedFilePath = e.DownloadedFilePath;
+                var updateDirectory = Path.GetDirectoryName(downloadedFilePath);
+                var processBackBaseArguments = LauncherApp.CommandLineArguments.ItselfValuedArguments
+                    .Single(a => a == CommandLineUtility.DevChannel);
+
+                // build update steps
+                var updateSteps = new Func<bool>[]
+                {
+                    () => _updateInstaller.ValidateUpdateFileHash(downloadedFilePath, _updateDescription.ZipHash),
+                    () => _updateInstaller.TryUnpackUpdateFiles(downloadedFilePath),
+                    () => _updateInstaller.TryRunUpdater(updateDirectory, _updateDescription, processBackBaseArguments)
+                };
+
+                // try to update step by step
+                var stepsResults = updateSteps.Any(us => us.Invoke() == false);
+                if (stepsResults)
+                {
+                    // try to cleanup update files
+                    _updateInstaller.CleanupFiles(_updateDescription.UpdaterFileName, updateDirectory);
+                }
             }
 
-            // prepare arguments
-            var downloadedFilePath = e.DownloadedFilePath;
-            var updateDirectory = Path.GetDirectoryName(downloadedFilePath);
-
-            // build update steps
-            var updateSteps = new Func<bool>[]
-            {
-                () => _updateInstaller.ValidateUpdateFileHash(downloadedFilePath, _updateDescription.ZipHash),
-                () => _updateInstaller.TryUnpackUpdateFiles(downloadedFilePath),
-                () => _updateInstaller.TryRunUpdater(updateDirectory, _updateDescription)
-            };
-
-            // try to update step by step
-            var stepsResults = updateSteps.Any(us => us.Invoke() == false);
-            if (stepsResults)
-            {
-                // try to cleanup update files
-                _updateInstaller.CleanupFiles(_updateDescription.UpdaterFileName, updateDirectory);
-                _ShowMainWindow();
-            }
+            _ShowMainWindow();
         }
 
         private void _OnUpdaterUpdateDownloadProgress(object sender, DownloadProgressEventArgs e)
@@ -195,7 +193,11 @@ namespace Launcher.App.ViewModels
                 .GetName();
             var updateDescription = e.UpdateDescription;
 
-            if (updateDescription != null && updateDescription.LatestVersion > currentAssemblyName.Version)
+            if (updateDescription != null
+                && (LauncherApp.IsDev
+                    ? updateDescription.LatestVersion > currentAssemblyName.Version
+                    : updateDescription.LatestVersion > currentAssemblyName.Version
+                      || currentAssemblyName.Version.Revision != 0))
             {
                 // update UI
                 Dispatcher.Invoke(() =>

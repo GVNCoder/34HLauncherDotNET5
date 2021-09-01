@@ -54,7 +54,7 @@ namespace Launcher.Data
             }
         }
 
-        public bool TryRunUpdater(string updateDirectoryPath, UpdateDescription updateDescription)
+        public bool TryRunUpdater(string updateDirectoryPath, UpdateDescription updateDescription, string processBackBaseArguments)
         {
             // get current process file path
             var currentProcess = Process.GetCurrentProcess();
@@ -67,7 +67,7 @@ namespace Launcher.Data
 
             // build process run arguments
             var processStartArguments = JsonConvert.SerializeObject(new
-                { updateFilesDirPath = updateFilesPath, processBackPath = launcherBackPath, deleteListFileName = updateDescription.DeleteListFileName });
+                { updateFilesDirPath = updateFilesPath, processBackPath = launcherBackPath, processBackBaseArguments, deleteListFileName = updateDescription.DeleteListFileName });
 
             // build process
             var process = new Process

@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Immutable;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
@@ -13,6 +14,7 @@ using Launcher.Data;
 using Launcher.Helpers;
 using Launcher.Services;
 using Launcher.Localization;
+using Launcher.Models;
 using Launcher.Themes;
 using Launcher.Utilities;
 using Launcher.ViewModels;
@@ -33,8 +35,8 @@ namespace Launcher
         #region Properties
 
         public static IServiceProvider Container { get; private set; }
-
-        public static IImmutableDictionary<string, string> CommandLineArguments { get; private set; }
+        public static CommandLineArguments CommandLineArguments { get; private set; }
+        public static bool IsDev { get; private set; }
 
         #endregion
 
@@ -86,6 +88,7 @@ namespace Launcher
 
             // init some static properties
             CommandLineArguments = CommandLineUtility.ParseCommandLineArguments(e.Args);
+            IsDev = CommandLineArguments.ItselfValuedArguments.Contains(CommandLineUtility.DevChannel);
 
             // init some static managers
             LocalizationManager.Init(Resources);

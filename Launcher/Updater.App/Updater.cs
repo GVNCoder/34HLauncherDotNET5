@@ -8,6 +8,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading;
+
 using Newtonsoft.Json;
 using Updater.App.Models;
 
@@ -29,6 +30,7 @@ namespace Updater.App
         private readonly string _destinationDirectoryPath;
         private readonly string _currentWorkingDirectoryPath;
         private readonly string _currentExecutablePath;
+        private readonly string _processBackBaseArguments;
 
         #region Ctor
 
@@ -43,6 +45,7 @@ namespace Updater.App
             _currentWorkingDirectoryPath = currentAppDomain.BaseDirectory;
             _currentExecutablePath       = Path.Combine(_currentWorkingDirectoryPath, currentAppDomain.FriendlyName);
             _targetProcessBackPath       = runArguments.ProcessBackPath;
+            _processBackBaseArguments    = runArguments.ProcessBackBaseArguments;
             _deleteFiles                 = File.ReadAllLines(runArguments.DeleteListFileName)
                 .Where(s => string.IsNullOrWhiteSpace(s) == false)
                 .Select(relativePath => Path.Combine(_destinationDirectoryPath, relativePath))
@@ -147,7 +150,7 @@ namespace Updater.App
         {
             // run process back
             var workingDirectory = _destinationDirectoryPath;
-            var arguments = JsonConvert.SerializeObject(new
+            var argumentValue = JsonConvert.SerializeObject(new
                 { updaterFileName = _currentExecutablePath, updateDirPath = _currentWorkingDirectoryPath, errorMessage });
 
             var process = new Process
@@ -156,7 +159,7 @@ namespace Updater.App
                 {
                     FileName = _targetProcessBackPath,
                     WorkingDirectory = workingDirectory,
-                    Arguments = arguments
+                    Arguments = $"{_processBackBaseArguments} -postUpdDesc={argumentValue}"
                 }
             };
 
