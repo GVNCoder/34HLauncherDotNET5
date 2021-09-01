@@ -27,7 +27,7 @@ namespace Launcher.App.ViewModels
         #region Constants
 
         private const string DevChannelUpdateDescription =
-            @"https://raw.githubusercontent.com/GVNCoder/34HLauncherDotNET5/master/Launcher/UpdateDescription.json";
+            @"https://drive.google.com/uc?id=1eOdfe2215pMBbYxCS-NsndjnFpWwrdNy&export=download";
         private const string ProdChannelUpdateDescription = "";
 
         #endregion
