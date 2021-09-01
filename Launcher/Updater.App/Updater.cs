@@ -32,8 +32,6 @@ namespace Updater.App
         {
             _runArguments = runArguments;
 
-            var currentAppDomain = AppDomain.CurrentDomain;
-
             // populate internal state
             _destinationDirectoryPath = Path.GetDirectoryName(runArguments.ProcessBackPath);
             _deleteFiles = File.ReadAllLines(runArguments.DeleteListFileName)
