@@ -10,16 +10,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TestSamples", "TestSamples", "{AA42EEC3-E332-4AC2-9377-0503AFB75369}"
-	ProjectSection(SolutionItems) = preProject
-		UpdateDescription.json = UpdateDescription.json
-	EndProjectSection
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Updater.App", "Updater.App\Updater.App.csproj", "{A516B0DA-EA83-436A-8B00-C4BD6FA45FE5}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Launcher.Resources", "Launcher.Resources\Launcher.Resources.csproj", "{EE711F77-6422-4E54-AC03-9D69365D749B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UpdateTool", "UpdateTool\UpdateTool.csproj", "{1FA09500-2485-4EE0-83A9-53AB53781239}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UpdateTool", "UpdateTool\UpdateTool.csproj", "{1FA09500-2485-4EE0-83A9-53AB53781239}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

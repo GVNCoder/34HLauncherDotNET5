@@ -16,12 +16,6 @@ namespace Updater.App
 {
     public class Updater
     {
-        #region Constants
-
-        private const int RunArgumentsIndex = 1;
-
-        #endregion
-
         private readonly string[] _deleteFiles;
         private readonly string _destinationDirectoryPath;
         private readonly UpdaterRunArguments _runArguments;
@@ -45,7 +39,7 @@ namespace Updater.App
         public static void Main(string[] args)
         {
             // get run arguments
-            var rawArguments = args[RunArgumentsIndex];
+            var rawArguments = args.First();
             var runArguments = JsonConvert.DeserializeObject<UpdaterRunArguments>(rawArguments);
 
             // create an application instance
@@ -126,13 +120,33 @@ namespace Updater.App
 
         private void MoveFiles()
         {
-            var sourceDirectoryFiles =
-                Directory.EnumerateFiles(_runArguments.UpdateFilesDirPath, "*.*", SearchOption.TopDirectoryOnly);
-
-            foreach (var sourceDirectoryFile in sourceDirectoryFiles)
+            // define local method
+            // https://stackoverflow.com/a/3054309
+            void CopyDirectoryContent(string source, string target)
             {
-                Directory.Move(sourceDirectoryFile, _destinationDirectoryPath);
+                // Check if the target directory exists, if not, create it.
+                if (Directory.Exists(target) == false)
+                {
+                    Directory.CreateDirectory(target);
+                }
+
+                // Copy each file into it’s new directory.
+                foreach (var filePath in Directory.GetFiles(source, "*.*", SearchOption.TopDirectoryOnly))
+                {
+                    File.Copy(filePath, Path.Combine(target, Path.GetFileName(filePath)), true);
+                }
+
+                // Copy each subdirectory using recursion.
+                foreach (var sourceSubDirPath in Directory.GetDirectories(source, "*", SearchOption.TopDirectoryOnly))
+                {
+                    var createdDir = Directory.CreateDirectory(Path.Combine(target,
+                        Path.GetRelativePath(_runArguments.UpdateFilesDirPath, sourceSubDirPath)));
+
+                    CopyDirectoryContent(sourceSubDirPath, createdDir.FullName);
+                }
             }
+
+            CopyDirectoryContent(_runArguments.UpdateFilesDirPath, _destinationDirectoryPath);
         }
 
         private void FinalizeUpdater(string errorMessage)
