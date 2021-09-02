@@ -139,8 +139,9 @@ namespace Updater.App
                 // Copy each subdirectory using recursion.
                 foreach (var sourceSubDirPath in Directory.GetDirectories(source, "*", SearchOption.TopDirectoryOnly))
                 {
-                    var createdDir = Directory.CreateDirectory(Path.Combine(target,
-                        Path.GetRelativePath(_runArguments.UpdateFilesDirPath, sourceSubDirPath)));
+                    var relativeDirPath = Path.GetRelativePath(_runArguments.UpdateFilesDirPath, sourceSubDirPath);
+                    var destinationDirPath = Path.Combine(target, relativeDirPath);
+                    var createdDir = Directory.CreateDirectory(destinationDirPath);
 
                     CopyDirectoryContent(sourceSubDirPath, createdDir.FullName);
                 }
