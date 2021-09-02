@@ -54,15 +54,15 @@
 
     <Style x:Key="LoginPageHyperlinkStyle" TargetType="{x:Type Hyperlink}">
         <Style.Triggers>
-            <!--<Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Foreground" Value="Red" />
-            </Trigger>-->
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="TextDecorations" Value="Underline" />
+            </Trigger>
             <Trigger Property="IsEnabled" Value="True">
                 <Setter Property="Cursor" Value="Hand" />
             </Trigger>
         </Style.Triggers>
         <Setter Property="Foreground" Value="#bfbfbf" />
-        <Setter Property="TextDecorations" Value="Underline" />
+        <Setter Property="TextDecorations" Value="None" />
     </Style>
 
     <Style x:Key="LoginButtonStyleDefault" TargetType="{x:Type Button}">
