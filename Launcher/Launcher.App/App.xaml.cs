@@ -11,6 +11,7 @@ using System.Windows;
 
 using Launcher.App.ViewModels;
 using Launcher.Data;
+using Launcher.Extensions;
 using Launcher.Helpers;
 using Launcher.Services;
 using Launcher.Localization;
@@ -51,26 +52,13 @@ namespace Launcher
             var serviceCollection = new ServiceCollection();
 
             // register services
-            serviceCollection.AddTransient<IUpdateChecker, UpdateChecker>();
-            serviceCollection.AddTransient<IUpdateDownloader, UpdateDownloader>();
-            serviceCollection.AddTransient<IUpdateInstaller, UpdateInstaller>();
+            serviceCollection.AddUpdaterServices();
             serviceCollection.AddSingleton<ILogger>(Log.Logger);
             serviceCollection.AddSingleton<INavigationService, NavigationService>();
-            serviceCollection.AddSingleton<IZApi>(ZApi.Instance);
-            serviceCollection.AddSingleton<IZConnection>(ZApi.Instance.GetApiConnection());
-            serviceCollection.AddSingleton<IZGameFactory>(ZApi.Instance.GetGameFactory());
-            serviceCollection.AddSingleton<IZInjector>(ZApi.Instance.GetInjectorService());
-            serviceCollection.AddSingleton<IZInstalledGames>(ZApi.Instance.GetInstalledGamesService());
-            serviceCollection.AddSingleton<IZPlayerStats>(ZApi.Instance.GetPlayerStatsService());
+            serviceCollection.AddZloAPI();
 
             // register viewModels
-            serviceCollection.AddScoped<StartupWindowViewModel>();
-            serviceCollection.AddScoped<MainWindowViewModel>();
-            serviceCollection.AddScoped<WindowNonClientViewModel>();
-            serviceCollection.AddScoped<WindowContentViewModel>();
-            serviceCollection.AddScoped<NavigationPanelViewModel>();
-            serviceCollection.AddScoped<LoginPageViewModel>(); // TODO: Scoped ?
-            serviceCollection.AddScoped<AuthorizedUserViewModel>();
+            serviceCollection.AddViewModels();
 
             // create container
             Container = serviceCollection.BuildServiceProvider();
