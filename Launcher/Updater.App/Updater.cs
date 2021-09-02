@@ -16,7 +16,7 @@ namespace Updater.App
 {
     public class Updater
     {
-        private readonly string[] _deleteFiles;
+        private readonly string[] _uninstallFiles;
         private readonly string _destinationDirectoryPath;
         private readonly UpdaterRunArguments _runArguments;
 
@@ -28,7 +28,7 @@ namespace Updater.App
 
             // populate internal state
             _destinationDirectoryPath = Path.GetDirectoryName(runArguments.ProcessBackPath);
-            _deleteFiles = File.ReadAllLines(runArguments.DeleteListFileName)
+            _uninstallFiles = File.ReadAllLines(runArguments.UninstallFileName)
                 .Where(s => string.IsNullOrWhiteSpace(s) == false)
                 .Select(relativePath => Path.Combine(_destinationDirectoryPath, relativePath))
                 .ToArray();
@@ -92,7 +92,7 @@ namespace Updater.App
 
             try
             {
-                foreach (var filePath in _deleteFiles)
+                foreach (var filePath in _uninstallFiles)
                 {
                     var file = new FileInfo(filePath);
                     if (file.Exists)
@@ -112,7 +112,7 @@ namespace Updater.App
 
         private void DeleteFiles()
         {
-            foreach (var filePath in _deleteFiles)
+            foreach (var filePath in _uninstallFiles)
             {
                 File.Delete(filePath);
             }

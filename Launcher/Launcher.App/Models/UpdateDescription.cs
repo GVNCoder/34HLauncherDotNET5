@@ -10,7 +10,7 @@ namespace Launcher.Models
         public Version LatestVersion { get; set; }
         public string ZipHash { get; set; }
         public string UpdaterFileName { get; set; }
-        public string DeleteListFileName { get; set; }
+        public string UninstallFileName { get; set; }
         public string UpdateFilesDirectoryName { get; set; }
     }
 }

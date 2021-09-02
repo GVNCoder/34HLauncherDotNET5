@@ -67,7 +67,7 @@ namespace Launcher.Data
 
             // build process run arguments
             var processStartArguments = JsonConvert.SerializeObject(new
-                { updateFilesDirPath = updateFilesPath, processBackPath = launcherBackPath, processBackBaseArguments, deleteListFileName = updateDescription.DeleteListFileName });
+                { updateFilesDirPath = updateFilesPath, processBackPath = launcherBackPath, processBackBaseArguments, updateDescription.UninstallFileName });
 
             // build process
             var process = new Process
