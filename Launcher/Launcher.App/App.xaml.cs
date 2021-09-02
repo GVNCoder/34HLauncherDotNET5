@@ -2,14 +2,12 @@
 // ReSharper disable MemberCanBePrivate.Global
 
 using System;
-using System.Collections.Immutable;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
 
-using Launcher.App.ViewModels;
 using Launcher.Data;
 using Launcher.Extensions;
 using Launcher.Helpers;
@@ -18,12 +16,10 @@ using Launcher.Localization;
 using Launcher.Models;
 using Launcher.Themes;
 using Launcher.Utilities;
-using Launcher.ViewModels;
 
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 
-using Zlo4NET.Api.Service;
 using Zlo4NET.Api.Shared;
 using Zlo4NET.Data;
 
