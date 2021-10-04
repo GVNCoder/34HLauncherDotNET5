@@ -37,7 +37,7 @@
     <system:Double x:Key="NavigationPanelItemCornerRadiusY">10</system:Double>
     <CornerRadius x:Key="NavigationPanelItemCornerRadius">10</CornerRadius>
 
-    <GridLength x:Key="NavigationPanelSeparatorWidth">2</GridLength>
+    <GridLength x:Key="NavigationPanelSeparatorWidth">1</GridLength>
 
     <Duration x:Key="NavigationButtonMouseOverHoverAnimationDuration">0:0:0.1</Duration>
     <Duration x:Key="NavigationButtonMouseOverAnimationDuration">0:0:0.15</Duration>

@@ -14,7 +14,7 @@
 
     <SolidColorBrush
         x:Key="WindowBackgroundBrush"
-        Opacity=".75"
+        Opacity=".70"
         Color="#0E0E0E" />
 
     <SolidColorBrush
@@ -42,7 +42,7 @@
         Color="#1e1e1e" />
     <SolidColorBrush
         x:Key="NavigationPanelBackgroundBrush"
-        Opacity="0.85"
+        Opacity="0.8"
         Color="#262626" />
 
     <LinearGradientBrush x:Key="StartupLogoBrush" StartPoint="0 0" EndPoint="1 1">
