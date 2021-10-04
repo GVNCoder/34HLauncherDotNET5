@@ -49,20 +49,20 @@
             <Button Content="" Style="{DynamicResource NavigationButtonStyle0}" />
         </UniformGrid>
 
-        <!--  Panel  -->
+        <!--  Panel (UniformGrid width was 160 for 4 elements)  -->
         <UniformGrid
             Grid.Column="2"
-            Width="160"
+            Width="120"
             Margin="10,0"
-            Columns="4">
+            Columns="3">
             <Button Content="" Style="{DynamicResource NavigationButtonStyle2}" />
             <Button Content="" Style="{DynamicResource NavigationButtonStyle3}" />
             <Button Content="" Style="{DynamicResource NavigationButtonStyle4}" />
-            <Button
+            <!--<Button
                 Content="Z"
                 FontFamily="{StaticResource RobotoFont}"
                 FontWeight="Bold"
-                Style="{DynamicResource NavigationButtonStyle5}" />
+                Style="{DynamicResource NavigationButtonStyle5}" />-->
         </UniformGrid>
 
         <!--  User Panel  -->

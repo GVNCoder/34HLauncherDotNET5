@@ -10,7 +10,6 @@
     attachedProperties:ApplicationNavigation.HistoryEnabled="False"
     d:DesignHeight="500"
     d:DesignWidth="1000"
-    Background="{DynamicResource ConnectionPageBackgroundBrush}"
     DataContext="{Binding Source={StaticResource Locator}, Path=LoginPageViewModel}"
     mc:Ignorable="d">
 

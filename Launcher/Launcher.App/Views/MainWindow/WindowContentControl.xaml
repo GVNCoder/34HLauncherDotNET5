@@ -11,10 +11,6 @@
     mc:Ignorable="d">
 
     <Grid>
-        <!--  Content Background  -->
-        <Image Source="{DynamicResource BackgroundImage}" Stretch="Fill" />
-        <Rectangle Fill="{DynamicResource WindowBackgroundBrush}" OpacityMask="{DynamicResource WindowBackgroundGradientOpacityMaskBrush}" />
-
         <!--  Content Host  -->
         <Frame Content="{Binding CurrentContent}" />
     </Grid>

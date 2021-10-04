@@ -10,18 +10,17 @@
     <SolidColorBrush x:Key="CantConnectForegroundBrush" Color="#db4f4f" />
     <SolidColorBrush x:Key="SloganForegroundBrush" Color="#717171" />
     <SolidColorBrush x:Key="MainTitleForegroundBrush" Color="#dbdbdb" />
+    <!--<SolidColorBrush x:Key="ConnectionPageBackgroundBrush" Color="#1e1e1e" />-->
+
     <SolidColorBrush
-        x:Key="ConnectionPageBackgroundBrush"
-        Opacity=".6"
-        Color="#1e1e1e" />
+        x:Key="WindowBackgroundBrush"
+        Opacity=".75"
+        Color="#0E0E0E" />
 
-    <LinearGradientBrush x:Key="WindowBackgroundGradientOpacityMaskBrush" StartPoint="0 0" EndPoint="1 1">
-        <GradientStop Offset="0" Color="Black" />
-        <GradientStop Offset="3" Color="Transparent" />
-    </LinearGradientBrush>
-    <SolidColorBrush x:Key="WindowBackgroundBrush" Color="#161616" />
-
-    <SolidColorBrush x:Key="NavigationPanelSeparatorFillBrush" Color="#212121" />
+    <SolidColorBrush
+        x:Key="NavigationPanelSeparatorFillBrush"
+        Opacity=".85"
+        Color="#212121" />
     <SolidColorBrush x:Key="UserNameForegroundBrush" Color="#c6c6c6" />
 
     <Color x:Key="NavigationButtonBackgroundColor">#313131</Color>
@@ -37,8 +36,14 @@
     </LinearGradientBrush>
 
     <SolidColorBrush x:Key="TitleBrush" Color="#C4C4C4" />
-    <SolidColorBrush x:Key="WindowNonClientBackgroundBrush" Color="#1e1e1e" />
-    <SolidColorBrush x:Key="NavigationPanelBackgroundBrush" Color="#262626" />
+    <SolidColorBrush
+        x:Key="WindowNonClientBackgroundBrush"
+        Opacity=".9"
+        Color="#1e1e1e" />
+    <SolidColorBrush
+        x:Key="NavigationPanelBackgroundBrush"
+        Opacity="0.85"
+        Color="#262626" />
 
     <LinearGradientBrush x:Key="StartupLogoBrush" StartPoint="0 0" EndPoint="1 1">
         <GradientStop Offset="0" Color="#6F81CC" />

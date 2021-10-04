@@ -43,6 +43,18 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
+        <!--  Content Background  -->
+        <Image
+            Grid.Row="0"
+            Grid.RowSpan="3"
+            Source="{DynamicResource BackgroundImage}"
+            Stretch="Fill" />
+        <Rectangle
+            Grid.Row="0"
+            Grid.RowSpan="3"
+            Fill="{DynamicResource WindowBackgroundBrush}" />
+
+        <!--  Controls declarations  -->
         <views:WindowNonClientControl Grid.Row="0" />
         <views:NavigationPanelControl Grid.Row="1" />
         <views:WindowContentControl Grid.Row="2" />
