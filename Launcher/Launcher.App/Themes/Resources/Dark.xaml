@@ -268,9 +268,9 @@
                                             Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)"
                                             To="White"
                                             Duration="{StaticResource NavigationButtonMouseOverHoverAnimationDuration}">
-                                            <ColorAnimation.EasingFunction>
+                                            <!--<ColorAnimation.EasingFunction>
                                                 <CubicEase EasingMode="{StaticResource NavigationButtonMouseOverHoverAnimationEasingFunction}" />
-                                            </ColorAnimation.EasingFunction>
+                                            </ColorAnimation.EasingFunction>-->
                                         </ColorAnimation>
                                     </Storyboard>
                                 </BeginStoryboard>
@@ -313,9 +313,9 @@
                                 Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)"
                                 To="#20B2AA"
                                 Duration="{StaticResource NavigationButtonMouseOverHoverAnimationDuration}">
-                                <ColorAnimation.EasingFunction>
+                                <!--<ColorAnimation.EasingFunction>
                                     <CubicEase EasingMode="{StaticResource NavigationButtonMouseOverHoverAnimationEasingFunction}" />
-                                </ColorAnimation.EasingFunction>
+                                </ColorAnimation.EasingFunction>-->
                             </ColorAnimation>
                         </Storyboard>
                     </BeginStoryboard>
@@ -351,9 +351,9 @@
                                 Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)"
                                 To="#9457EB"
                                 Duration="{StaticResource NavigationButtonMouseOverHoverAnimationDuration}">
-                                <ColorAnimation.EasingFunction>
+                                <!--<ColorAnimation.EasingFunction>
                                     <CubicEase EasingMode="{StaticResource NavigationButtonMouseOverHoverAnimationEasingFunction}" />
-                                </ColorAnimation.EasingFunction>
+                                </ColorAnimation.EasingFunction>-->
                             </ColorAnimation>
                         </Storyboard>
                     </BeginStoryboard>
@@ -389,9 +389,9 @@
                                 Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)"
                                 To="#CC397B"
                                 Duration="{StaticResource NavigationButtonMouseOverHoverAnimationDuration}">
-                                <ColorAnimation.EasingFunction>
+                                <!--<ColorAnimation.EasingFunction>
                                     <CubicEase EasingMode="{StaticResource NavigationButtonMouseOverHoverAnimationEasingFunction}" />
-                                </ColorAnimation.EasingFunction>
+                                </ColorAnimation.EasingFunction>-->
                             </ColorAnimation>
                         </Storyboard>
                     </BeginStoryboard>
@@ -427,9 +427,9 @@
                                 Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)"
                                 To="#EB4C42"
                                 Duration="{StaticResource NavigationButtonMouseOverHoverAnimationDuration}">
-                                <ColorAnimation.EasingFunction>
+                                <!--<ColorAnimation.EasingFunction>
                                     <CubicEase EasingMode="{StaticResource NavigationButtonMouseOverHoverAnimationEasingFunction}" />
-                                </ColorAnimation.EasingFunction>
+                                </ColorAnimation.EasingFunction>-->
                             </ColorAnimation>
                         </Storyboard>
                     </BeginStoryboard>
@@ -465,9 +465,9 @@
                                 Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)"
                                 To="#F07427"
                                 Duration="{StaticResource NavigationButtonMouseOverHoverAnimationDuration}">
-                                <ColorAnimation.EasingFunction>
+                                <!--<ColorAnimation.EasingFunction>
                                     <CubicEase EasingMode="{StaticResource NavigationButtonMouseOverHoverAnimationEasingFunction}" />
-                                </ColorAnimation.EasingFunction>
+                                </ColorAnimation.EasingFunction>-->
                             </ColorAnimation>
                         </Storyboard>
                     </BeginStoryboard>
@@ -503,9 +503,9 @@
                                 Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)"
                                 To="#DFB014"
                                 Duration="{StaticResource NavigationButtonMouseOverHoverAnimationDuration}">
-                                <ColorAnimation.EasingFunction>
+                                <!--<ColorAnimation.EasingFunction>
                                     <CubicEase EasingMode="{StaticResource NavigationButtonMouseOverHoverAnimationEasingFunction}" />
-                                </ColorAnimation.EasingFunction>
+                                </ColorAnimation.EasingFunction>-->
                             </ColorAnimation>
                         </Storyboard>
                     </BeginStoryboard>
@@ -541,9 +541,9 @@
                                 Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)"
                                 To="#50C878"
                                 Duration="{StaticResource NavigationButtonMouseOverHoverAnimationDuration}">
-                                <ColorAnimation.EasingFunction>
+                                <!--<ColorAnimation.EasingFunction>
                                     <CubicEase EasingMode="{StaticResource NavigationButtonMouseOverHoverAnimationEasingFunction}" />
-                                </ColorAnimation.EasingFunction>
+                                </ColorAnimation.EasingFunction>-->
                             </ColorAnimation>
                         </Storyboard>
                     </BeginStoryboard>
@@ -579,9 +579,9 @@
                                 Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)"
                                 To="#318CE7"
                                 Duration="{StaticResource NavigationButtonMouseOverHoverAnimationDuration}">
-                                <ColorAnimation.EasingFunction>
+                                <!--<ColorAnimation.EasingFunction>
                                     <CubicEase EasingMode="{StaticResource NavigationButtonMouseOverHoverAnimationEasingFunction}" />
-                                </ColorAnimation.EasingFunction>
+                                </ColorAnimation.EasingFunction>-->
                             </ColorAnimation>
                         </Storyboard>
                     </BeginStoryboard>

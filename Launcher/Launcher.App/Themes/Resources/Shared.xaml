@@ -39,10 +39,10 @@
 
     <GridLength x:Key="NavigationPanelSeparatorWidth">1</GridLength>
 
-    <Duration x:Key="NavigationButtonMouseOverHoverAnimationDuration">0:0:0.1</Duration>
+    <Duration x:Key="NavigationButtonMouseOverHoverAnimationDuration">0:0:0</Duration>
     <Duration x:Key="NavigationButtonMouseOverAnimationDuration">0:0:0.15</Duration>
 
-    <EasingMode x:Key="NavigationButtonMouseOverHoverAnimationEasingFunction">EaseIn</EasingMode>
+    <!--<EasingMode x:Key="NavigationButtonMouseOverHoverAnimationEasingFunction">EaseOut</EasingMode>-->
     <EasingMode x:Key="NavigationButtonMouseOverAnimationEasingFunction">EaseIn</EasingMode>
 
     <system:Double x:Key="LoginButtonsFontSize">14</system:Double>
