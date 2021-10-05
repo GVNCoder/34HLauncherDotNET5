@@ -12,6 +12,6 @@
 
     <Grid>
         <!--  Content Host  -->
-        <Frame Content="{Binding CurrentContent}" />
+        <Frame Content="{Binding CurrentContent}" NavigationUIVisibility="Hidden" />
     </Grid>
 </UserControl>

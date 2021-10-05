@@ -86,8 +86,7 @@ namespace Launcher.ViewModels
         {
             if (e.IsConnected)
             {
-                // TODO: navigate to home ;)
-                MessageBox.Show($"Connected successfully as {e.AuthorizedUser.UserName}");
+                Dispatcher.Invoke(() => _navigationService.Navigate("Views\\HomeMenuPage\\HomeMenuPageView.xaml"));
             }
             else
             {
